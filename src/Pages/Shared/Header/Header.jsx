@@ -10,7 +10,7 @@ const Header = () => {
   };
 
           // const {user, LogOut} = useContext(AuthContex)
-          const user = true;
+          const user = false;
           // const handleLogOut = () => {
           //           LogOut()
           //           .then(() => {
@@ -28,16 +28,16 @@ const Header = () => {
           <NavLink to= '/'  className="text-xl flex items-center px-4 -mb-1 border-b-2 border-transparent ">Home</NavLink>
           </li>
           <li className="flex">
-          <NavLink to= '/alljobs'  className="text-xl flex items-center px-4 -mb-1 border-b-2 border-transparent ">All Meals</NavLink>
+          <NavLink to= '/allmeals'  className="text-xl flex items-center px-4 -mb-1 border-b-2 border-transparent ">All Meals</NavLink>
           </li>
           <li className="flex">
-          <NavLink to= '/alljobs'  className="text-xl flex items-center px-4 -mb-1 border-b-2 border-transparent ">Upcoming Meals</NavLink>
+          <NavLink to= '/upcoming'  className="text-xl flex items-center px-4 -mb-1 border-b-2 border-transparent ">Upcoming Meals</NavLink>
           </li>
           { user ? <li className="flex">
-          <NavLink to= '/appliedjobs'  className="text-xl flex items-center px-4 -mb-1 border-b-2 border-transparent ">Blogs</NavLink>
+          <NavLink to= '/blogs'  className="text-xl flex items-center px-4 -mb-1 border-b-2 border-transparent ">Blogs</NavLink>
           </li> :
           <li className="flex">
-          <NavLink to= '/about'  className="text-xl flex items-center px-4 -mb-1 border-b-2 border-transparent ">Contact Us</NavLink>
+          <NavLink to= '/contact'  className="text-xl flex items-center px-4 -mb-1 border-b-2 border-transparent ">Contact Us</NavLink>
           </li>
           }
           
@@ -55,7 +55,7 @@ const Header = () => {
           </ul>
           <div className="items-center gap-2 flex-shrink-0 hidden lg:flex">
           
-          { user? '' : <Link to= '/login' className=" flex items-center uppercase gap-2">
+          { user? '' : <Link to= '/login' className=" flex items-center text-xl font-semibold gap-2">
           <span className="relative flex-shrink-0 w-2 h-2 rounded-full bg-yellow-400 text-xl">
           <span className="absolute flex-shrink-0 w-3 h-3 rounded-full -left-1 -top-1 animate-ping bg-yellow-400"></span>
           </span>Join Us</Link> 
@@ -119,10 +119,6 @@ const Header = () => {
             </div>
             <div>
               {links}
-              <Link to= '/postJob' className=" my-1 flex items-center uppercase gap-2">
-          <span className="relative flex-shrink-0 w-2 h-2 rounded-full bg-violet-400 text-xl">
-          <span className="absolute flex-shrink-0 w-3 h-3 rounded-full -left-1 -top-1 animate-ping bg-violet-400"></span>
-          </span>Post a Job</Link>
             </div>
             <div className="mt-1">
               <Link to="/dashboard" className="btn btn-sm bg-violet-300">
