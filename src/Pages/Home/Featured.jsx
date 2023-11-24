@@ -7,7 +7,7 @@ const Featured = () => {
 
   const [jobData,setdata] = useState([])
       useEffect(() => {
-      fetch(`https://career-canvas-backend.vercel.app/alljobs`)
+      fetch(`https://career-canvas-backend.vercel.app/jobs`)
       .then((res) => res.json())
       .then((data) => {
       setdata(data);
@@ -26,7 +26,7 @@ const Featured = () => {
     <div className="max-w-7xl mx-auto px-3 lg:px-0 " style={{ overflowX: 'hidden' }}>
       <div className="text-center my-6">
       <h2 className="text-black mb-3 text-3xl leading-[1.208] font-bold sm:text-4xl md:text-[40px]">
-      Featured Jobs
+      Most popular dishes
       </h2>
       <p className="text-body-color text-base dark:text-dark-6">
       There are many variations of passages of Lorem Ipsum available
@@ -39,11 +39,11 @@ const Featured = () => {
             onClick={() => handlejobs("all")}
             className={`inline-block rounded-lg py-2 px-5 text-center text-base font-semibold transition md:py-3 lg:px-8 ${
               showCard === "all"
-                ? "activeClasses bg-primary text-white"
-                : "inactiveClasses text-body-color dark:text-dark-6 hover:bg-primary hover:text-white"
+                ? "activeClasses bg-yellow-400 text-black"
+                : "inactiveClasses text-body-color dark:text-dark-6 hover:bg-yellow-400 hover:text-black"
             }`}
           >
-            All Jobs
+             Breakfast
           </button>
         </li>
         <li className="mb-1">
@@ -51,11 +51,11 @@ const Featured = () => {
             onClick={() => handlejobs("Branding")}
             className={`inline-block rounded-lg py-2 px-5 text-center text-base font-semibold transition md:py-3 lg:px-8 ${
               showCard === "Branding"
-                ? "activeClasses bg-primary text-white"
-                : "inactiveClasses text-body-color dark:text-dark-6 hover:bg-primary hover:text-white"
+                ? "activeClasses bg-yellow-400 text-black"
+                : "inactiveClasses text-body-color dark:text-dark-6 hover:bg-yellow-400 hover:text-black"
             }`}
           >
-            Branding
+           Lunch
           </button>
         </li>
         <li className="mb-1">
@@ -63,25 +63,25 @@ const Featured = () => {
             onClick={() => handlejobs("Marketing")}
             className={`inline-block rounded-lg py-2 px-5 text-center text-base font-semibold transition md:py-3 lg:px-8 ${
               showCard === "Marketing"
-                ? "activeClasses bg-primary text-white"
-                : "inactiveClasses text-body-color dark:text-dark-6 hover:bg-primary hover:text-white"
+                ? "activeClasses bg-yellow-400 text-black"
+                : "inactiveClasses text-body-color dark:text-dark-6 hover:bg-yellow-400 hover:text-black"
             }`}
           >
-            Marketing
+            Dinner
           </button>
         </li>
-        <li className="mb-1">
+        {/* <li className="mb-1">
           <button
             onClick={() => handlejobs("Development")}
             className={`inline-block rounded-lg py-2 px-5 text-center text-base font-semibold transition md:py-3 lg:px-8 ${
               showCard === "Development"
-                ? "activeClasses bg-primary text-white"
-                : "inactiveClasses text-body-color dark:text-dark-6 hover:bg-primary hover:text-white"
+                ? "activeClasses bg-yellow-400 text-black"
+                : "inactiveClasses text-body-color  hover:bg-yellow-400 hover:text-black"
             }`}
           >
-            Development
+           Dinner
           </button>
-        </li>
+        </li> */}
         
       </ul>
 
@@ -104,8 +104,8 @@ const Featured = () => {
         ))}
       </div>
       <div className="flex items-center justify-center">
-        <Link to= "/alljobs" >
-        <button className="btn bg-violet-500 text-white hover:bg-violet-400">Show More</button>
+        <Link to= "/allmeals" >
+        <button className="btn bg-violet-500 text-white hover:bg-violet-400">See All</button>
         </Link>
       </div>
     </div>

@@ -1,13 +1,18 @@
 import Banner from "./Banner";
 import Experience from "./Experience";
 import Featured from "./Featured";
+import Service from "./Service";
 
 const Home = () => {
           return (
           <div>
            <Banner></Banner>
+           <div className="max-w-7xl mx-auto">
+
            <Experience></Experience>
-           <Featured></Featured>                   
+           <Featured></Featured>
+           <Service></Service>                   
+           </div>
           </div>
           );
 };
