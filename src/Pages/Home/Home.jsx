@@ -1,6 +1,7 @@
 import Banner from "./Banner";
 import Experience from "./Experience";
 import Featured from "./Featured";
+import Pricing from "./Pricing";
 import Service from "./Service";
 
 const Home = () => {
@@ -8,9 +9,9 @@ const Home = () => {
           <div>
            <Banner></Banner>
            <div className="max-w-7xl mx-auto">
-
-           <Experience></Experience>
+          <Experience></Experience>
            <Featured></Featured>
+           <Pricing></Pricing>
            <Service></Service>                   
            </div>
           </div>
