@@ -1,9 +1,13 @@
 import Banner from "./Banner";
+import Experience from "./Experience";
+import Featured from "./Featured";
 
 const Home = () => {
           return (
           <div>
-           <Banner></Banner>                   
+           <Banner></Banner>
+           <Experience></Experience>
+           <Featured></Featured>                   
           </div>
           );
 };
