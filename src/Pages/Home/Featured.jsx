@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { FaStar } from 'react-icons/fa'; 'react-icons/fa';
+import { FaStar } from 'react-icons/fa';
 
       const Featured = () => {
       const [foodData,setdata] = useState([])
       useEffect(() => {
-      fetch('/items.json')
+      fetch('http://localhost:5000/allmeals')
       .then((res) => res.json())
       .then((data) => {
       setdata(data);
@@ -77,10 +77,12 @@ import { FaStar } from 'react-icons/fa'; 'react-icons/fa';
       <div key={index}>
       <PortfolioCard
       key={index}
+      img={food.imageUrl}
       showCard={selectedCategory}
       category={food.category}
       title={food.title}
       price={food.price}
+      id={food._id}
       />
       </div>
       ))}
@@ -94,7 +96,7 @@ import { FaStar } from 'react-icons/fa'; 'react-icons/fa';
       );
       };
 
-      const PortfolioCard = ({ showCard, category, title, price }) => {
+      const PortfolioCard = ({ showCard, img, category, id, title, price }) => {
       return (
       <div
       className={`${
@@ -105,10 +107,10 @@ import { FaStar } from 'react-icons/fa'; 'react-icons/fa';
       >
       <div className="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow">
 
-      <img className="p-4 rounded-lg" src="https://starbelly.windstripedesign.ro/images/menu/3.jpg"  />
+      <img className="p-4 rounded-lg w-full h-96" src={img}  />
       <div className="px-5 pb-5">
 
-      <h5 className="text-xl font-semibold tracking-tight text-gray-900 ">{title} and catagory is : {category}</h5>
+      <h5 className="text-xl font-semibold tracking-tight text-gray-900 ">{title}</h5>
 
       <div className="flex items-center mt-2.5 mb-5">
       <div className="flex items-center space-x-1 rtl:space-x-reverse">
@@ -120,7 +122,7 @@ import { FaStar } from 'react-icons/fa'; 'react-icons/fa';
       </div>
       <div className="flex items-center justify-between">
       <span className="text-3xl font-bold text-gray-900 ">${price}</span>
-      <Link className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center ">Details</Link>
+      <Link to={`/meal/${id}`} className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center ">Details</Link>
       </div>
       </div>
       </div>
