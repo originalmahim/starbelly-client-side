@@ -5,18 +5,6 @@ import { FaStar } from 'react-icons/fa'; 'react-icons/fa';
 
 const Featured = () => {
 
-  // const [foodData,setFooddata] = useState([])
-      // useEffect(() => {
-      // fetch('/items.json')
-      // .then((res) => res.json())
-      // .then((data) => {
-      // setFooddata(data);
-      // console.log(data);
-      // })
-      // .catch((error) => {
-      // console.error("Error fetching data:", error);
-      // });
-      // }, []);
       const foodData = [
         {
           "category": "Breakfast",
@@ -121,11 +109,11 @@ const Featured = () => {
           "postTime": "2023-11-25T14:15:00"
         }
       ]
-          const [showCard, setShowCard] = useState("Dinner");
+      const [selectedCategory, setSelectedCategory] = useState("Dinner");
 
-          const handlefoods = (category) => {
-           setShowCard(category);
-          };
+      const handlefoods = (category) => {
+        setSelectedCategory(category);
+      };
 
   return (
     <div className="max-w-7xl mx-auto px-3 lg:px-0 " style={{ overflowX: 'hidden' }}>
@@ -143,7 +131,7 @@ const Featured = () => {
           <button
             onClick={() => handlefoods("Dinner")}
             className={`inline-block rounded-lg py-2 px-5 text-center text-base font-semibold transition md:py-3 lg:px-8 ${
-              showCard === "Dinner"
+              selectedCategory === "Dinner"
                 ? "activeClasses bg-yellow-400 text-black"
                 : "inactiveClasses text-body-color dark:text-dark-6 hover:bg-yellow-400 hover:text-black"
             }`}
@@ -155,7 +143,7 @@ const Featured = () => {
           <button
             onClick={() => handlefoods("Lunch")}
             className={`inline-block rounded-lg py-2 px-5 text-center text-base font-semibold transition md:py-3 lg:px-8 ${
-              showCard === "Lunch"
+              selectedCategory === "Lunch"
                 ? "activeClasses bg-yellow-400 text-black"
                 : "inactiveClasses text-body-color dark:text-dark-6 hover:bg-yellow-400 hover:text-black"
             }`}
@@ -167,7 +155,7 @@ const Featured = () => {
           <button
             onClick={() => handlefoods("Breakfast")}
             className={`inline-block rounded-lg py-2 px-5 text-center text-base font-semibold transition md:py-3 lg:px-8 ${
-              showCard === "Breakfast"
+              selectedCategory === "Breakfast"
                 ? "activeClasses bg-yellow-400 text-black"
                 : "inactiveClasses text-body-color dark:text-dark-6 hover:bg-yellow-400 hover:text-black"
             }`}
@@ -181,20 +169,20 @@ const Featured = () => {
       </ul>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 my-5">
-      {foodData.slice(0,3).map((food, index) => (
-  <div key={index}>
-    {console.log("showCard:", showCard)}
-    {console.log("food.category:", food.category)}
-
-    <PortfolioCard
-      key={index}
-      showCard={showCard}
-      category={food.category}
-      title={food.title}
-      price={food.price}
-    />
-  </div>
-))}
+        {foodData
+          .filter((food) => selectedCategory === "Breakfast" || food.category === selectedCategory)
+          .slice(0, 3)
+          .map((food, index) => (
+            <div key={index}>
+              <PortfolioCard
+                key={index}
+                showCard={selectedCategory}
+                category={food.category}
+                title={food.title}
+                price={food.price}
+              />
+            </div>
+          ))}
       </div>
       <div className="flex items-center justify-center">
         <Link to= "/alljobs" >
@@ -205,7 +193,7 @@ const Featured = () => {
   );
 };
 
-const PortfolioCard = ({ showCard, category, title, price,}) => {
+const PortfolioCard = ({ showCard, category, title, price }) => {
   return (
     <div
       className={`${
@@ -216,28 +204,28 @@ const PortfolioCard = ({ showCard, category, title, price,}) => {
     >
        <div className="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow">
     
-      <img className="p-4 rounded-lg" src="https://starbelly.windstripedesign.ro/images/menu/3.jpg"  />
-    <div className="px-5 pb-5">
-      
-        <h5 className="text-xl font-semibold tracking-tight text-gray-900 ">{title} and catagory is : {category}</h5>
+    <img className="p-4 rounded-lg" src="https://starbelly.windstripedesign.ro/images/menu/3.jpg"  />
+  <div className="px-5 pb-5">
+    
+      <h5 className="text-xl font-semibold tracking-tight text-gray-900 ">{title} and catagory is : {category}</h5>
 
-      <div className="flex items-center mt-2.5 mb-5">
-        <div className="flex items-center space-x-1 rtl:space-x-reverse">
-          {[...Array(4)].map((_, index) => (
-            <FaStar key={index} className="w-4 h-4 text-yellow-300" />
-          ))}
-          <FaStar className="w-4 h-4 text-gray-200 dark:text-gray-600" />
-        </div>
+    <div className="flex items-center mt-2.5 mb-5">
+      <div className="flex items-center space-x-1 rtl:space-x-reverse">
+        {[...Array(4)].map((_, index) => (
+          <FaStar key={index} className="w-4 h-4 text-yellow-300" />
+        ))}
+        <FaStar className="w-4 h-4 text-gray-200 dark:text-gray-600" />
       </div>
-      <div className="flex items-center justify-between">
-        <span className="text-3xl font-bold text-gray-900 ">${price}</span>
-        <Link className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center ">Details</Link>
-      </div>
+    </div>
+    <div className="flex items-center justify-between">
+      <span className="text-3xl font-bold text-gray-900 ">${price}</span>
+      <Link className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center ">Details</Link>
     </div>
   </div>
-    </div>
-  );
-  
+</div>
+  </div>
+);
+
 };
 
 export default Featured;
