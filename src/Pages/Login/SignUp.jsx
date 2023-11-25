@@ -1,25 +1,34 @@
 import { FcGoogle } from 'react-icons/fc';
-import { Link } from "react-router-dom";
-import {  useState } from 'react';
+import { Link, useNavigate } from "react-router-dom";
+import {  useContext, useState } from 'react';
 import { AiFillEye,AiFillEyeInvisible } from 'react-icons/ai';
-// import Swal from 'sweetalert2'
+import { GoogleAuthProvider, getAuth, signInWithPopup, updateProfile } from 'firebase/auth';
+import Swal from 'sweetalert2'
+import { AuthContex } from '../Providers/AuthProvider';
+import app from '../Shared/firebase.config';
+// import { Helmet } from 'react-helmet';
 
 
 const SignUp = () => {
 
-          // const [registerError,setRegisterError] = useState('')
+  const {CreateUser} = useContext(AuthContex)
+          const [registerError,setRegisterError] = useState('')
         const [showPassword, setShowPassword] = useState(false);
+   const navigate = useNavigate()
+
+   const auth = getAuth(app);
+  const provider = new GoogleAuthProvider();
 
   const handleGoogleSignup = () => {
-//     signInWithPopup(auth,provider)
-//     .then(() => {
-//       Swal.fire(
-//       'Account Created',
-//       'You have Created Account successfully',
-//         'success'
-//       )
-//        navigate(location?.state ? location.state : '/')
-     // })
+    signInWithPopup(auth,provider)
+    .then(() => {
+      Swal.fire(
+      'Account Created',
+      'You have Created Account successfully',
+        'success'
+      )
+       navigate(location?.state ? location.state : '/')
+     })
  }
 
         const handlesignupformSubmit = e => {
@@ -28,55 +37,42 @@ const SignUp = () => {
         const password = e.target.password.value;
         const name = e.target.name.value;
         const url = e.target.photoUrl.value;
-//         const hack = {name,email,password,url}
+        
+        setRegisterError('')
 
-//         setRegisterError('')
 
+        if (!/^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/.test(password)) {
+        return setRegisterError('password should at least 6 characters long and contains  number , letter and  special characters')    
+        }
 
-//         if (!/^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/.test(password)) {
-//         return setRegisterError('password should at least 6 characters long and contains  number , letter and  special characters')    
-//         }
-
-//         if (password != confirmPassword) {
-//         return setRegisterError('Password And Confirm Password Should be Same') 
-//         }
-
-//         CreateUser(email,password)
-//         .then(result => {
-//           updateProfile(result.user,{
-//           displayName: name,
-//           photoURL: url,
-//           })
-          // fetch('https://wazo-backend-code.vercel.app/hack',{
-          //   method: 'POST',
-          //   headers: {
-          //     'content-type':'application/json'
-          //   },
-          //   body: JSON.stringify(hack)
-         // })
-          // .then(res => res.json())
-          // .then( () => {
-          //   Swal.fire(
-          //     'Account Created',
-          //     'You have Created Account successfully',
-          //     'success'
-          //     )
-          //     navigate(location?.state ? location.state : '/')
-
-//           })
-
-//         })
-//         .catch(error => {
-//           console.error(error.message)
-//        setRegisterError(error.message);
-//         })
+        CreateUser(email,password)
+        .then(result => {
+          updateProfile(result.user,{
+          displayName: name,
+          photoURL: url,
+          })
+          .then( () => {
+            Swal.fire(
+              'Account Created',
+              'You have Created Account successfully',
+              'success'
+              )
+              navigate(location?.state ? location.state : '/')
+    
+          })
+          
+        })
+        .catch(error => {
+          console.error(error.message)
+       setRegisterError(error.message);
+        })
 
         }
 
           return (
           <div className=''>
             {/* <Helmet>
-              <title>Wazo - Sign Up</title>
+            <title>Starbelly | Sign Up</title>
             </Helmet> */}
           <div className="max-w-6xl mx-auto flex items-center justify-center  text-xl mb-6  ">
           <div className='hidden lg:grid'>
@@ -88,7 +84,7 @@ const SignUp = () => {
           <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl ">
           Create an account
           </h1>
-
+          
           <form onSubmit={handlesignupformSubmit} className="space-y-4 md:space-y-6">
           <div>
           <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 ">Your Full Name</label>
@@ -152,7 +148,7 @@ const SignUp = () => {
           </div>
           </div>
           <button
-
+          
           className="w-full text-white bg-violet-400 hover:bg-white hover:text-[#1c6e5f] focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center "
           >
           Create an account
@@ -161,12 +157,12 @@ const SignUp = () => {
           Already have an account? <Link to = "/login"><a className="font-medium  text-primary-600 hover:underline dark:text-primary-500 text-blue-500">Login here</a></Link> 
           </p>
           </form>
-          {/* {
+          {
           registerError &&
           
           <p className="text-red-400">{registerError}</p>
            
-          } */}
+          }
           <div className="text-center">
             <button onClick={handleGoogleSignup} className="btn bg-white text-blue-400"> <FcGoogle className='text-2xl' ></FcGoogle> Sign Up with Google</button>
           </div>
