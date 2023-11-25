@@ -1,7 +1,9 @@
 import { Link, NavLink, Outlet } from "react-router-dom";
-import {  useState } from "react";
+import {  useContext, useState } from "react";
 import Footer from "../Footer/Footer";
 import './Header.css'
+import Swal from 'sweetalert2';
+import { AuthContex } from "../../Providers/AuthProvider";
 const Header = () => {
 
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -10,18 +12,17 @@ const Header = () => {
     setIsDropdownOpen(!isDropdownOpen);
   };
 
-          // const {user, LogOut} = useContext(AuthContex)
-          const user = false;
-          // const handleLogOut = () => {
-          //           LogOut()
-          //           .then(() => {
-          //             Swal.fire(
-          //               'Loged Out',
-          //               'You have loged Out successfully',
-          //               'success'
-          //             )
-          //           })
-          //         }
+          const {user, LogOut} = useContext(AuthContex)
+          const handleLogOut = () => {
+                    LogOut()
+                    .then(() => {
+                      Swal.fire(
+                        'Loged Out',
+                        'You have loged Out successfully',
+                        'success'
+                      )
+                    })
+                  }
 
           const links = <>
           
@@ -87,7 +88,7 @@ const Header = () => {
               <Link to="/dashboard" className="btn btn-sm bg-yellow-300">
                 Dashboard
               </Link>
-              <button
+              <button onClick={handleLogOut}
                 className="btn btn-sm bg-yellow-300"
               >
                 LogOut
@@ -126,7 +127,7 @@ const Header = () => {
                 Dashboard
               </Link>
               <button
-                
+                onClick={handleLogOut}
                 className="btn btn-sm bg-yellow-300"
               >
                 LogOut

@@ -4,7 +4,7 @@ const Experience = () => {
           <div className="max-w-7xl mx-auto my-4">
            <div className="lg:flex items-center">
            <div>
-            <img className="image-class" src="https://i.ibb.co/j3MkxSH/2.jpg" alt="Description" />
+            <img className="image-class" src="https://housing.berkeley.edu/wp-content/uploads/UCB_dining-056-Elena-Zhukovas-conflicted-copy-2017-05-08-750px.jpg"  />
           </div> 
           <div className="p-20">
           <h1 className="lg:text-4xl text-xl font-bold text-black" >We are doing more than <br />
