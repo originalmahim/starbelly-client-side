@@ -2,9 +2,9 @@
 
 const UpCommingMeal = () => {
           return (
-                    <div>
+          <div>
                               
-                    </div>
+          </div>
           );
 };
 

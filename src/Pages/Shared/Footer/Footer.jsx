@@ -2,7 +2,7 @@
 
 const Footer = () => {
           return (
-          <div className="max-w-7xl mx-auto text-xl">
+          <div className="max-w-7xl mx-auto  text-xl">
           <footer className="footer p-10  text-base-content">
           <aside>
           <img className="w-44" src="https://starbelly.windstripedesign.ro/images/ui/logo.svg"  />

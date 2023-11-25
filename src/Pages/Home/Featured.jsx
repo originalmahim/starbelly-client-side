@@ -86,7 +86,7 @@ import { FaStar } from 'react-icons/fa'; 'react-icons/fa';
       ))}
       </div>
       <div className="flex items-center justify-center">
-      <Link to= "/alljobs" >
+      <Link to= "/allmeals" >
       <button className="btn bg-yellow-400 text-black hover:bg-yellow-400">Show More</button>
       </Link>
       </div>

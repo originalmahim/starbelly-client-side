@@ -9,6 +9,8 @@ import Home from './Pages/Home/Home';
 import Header from './Pages/Shared/Header/Header';
 import Login from './Pages/Login/Login';
 import SignUp from './Pages/Login/SignUp';
+import Meals from './Pages/Meals/Meals';
+import AuthProvider from './Pages/Providers/AuthProvider';
 const router = createBrowserRouter([
   {
     path: "/",
@@ -25,12 +27,18 @@ const router = createBrowserRouter([
       {
         path: '/signUp',
         element: <SignUp></SignUp>
+      },
+      {
+        path: '/allmeals',
+        element: <Meals></Meals>
       }
     ]
   },
 ]);
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
+    <AuthProvider>
     <RouterProvider router={router}></RouterProvider>
+    </AuthProvider>
   </React.StrictMode>,
 )
