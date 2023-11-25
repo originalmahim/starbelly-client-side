@@ -4,8 +4,8 @@ const Experience = () => {
           <div className="max-w-7xl mx-auto my-4">
            <div className="lg:flex items-center">
            <div>
-      <img className="image-class" src="https://i.ibb.co/j3MkxSH/2.jpg" alt="Description" />
-    </div> 
+            <img className="image-class" src="https://i.ibb.co/j3MkxSH/2.jpg" alt="Description" />
+          </div> 
           <div className="p-20">
           <h1 className="lg:text-4xl text-xl font-bold text-black" >We are doing more than <br />
           you expect</h1>
