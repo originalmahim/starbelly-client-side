@@ -16,7 +16,7 @@ const CheckoutPage = () => {
                   <span>Shipping</span>
                   <span>$9.99</span>
                 </div>
-              </div>
+              </div> 
   
               {/* Billing details form */}
               <form>
