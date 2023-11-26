@@ -20,6 +20,7 @@ import AllMeals from './Pages/Dashboard/AllMeals';
 import AllReviews from './Pages/Dashboard/AllReviews';
 import ServeMeal from './Pages/Dashboard/ServeMeal';
 import UpcommingMeals from './Pages/Dashboard/UpcommingMeals';
+import CheckoutPage from './Pages/CheckoutPage/CheckoutPage';
 const router = createBrowserRouter([
   {
     path: "/",
@@ -45,6 +46,10 @@ const router = createBrowserRouter([
         path: '/meal/:id',
         element: <FoodDetails></FoodDetails>,
         loader: ({params}) => fetch(`http://localhost:5000/allmeals/${params.id}`)
+      },
+      {
+        path: '/Checkout',
+        element: <CheckoutPage></CheckoutPage>
       },
       {
         path: '/dashboard',
