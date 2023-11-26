@@ -117,7 +117,7 @@ import { FaStar } from 'react-icons/fa';
       {[...Array(4)].map((_, index) => (
       <FaStar key={index} className="w-4 h-4 text-yellow-300" />
       ))}
-      <FaStar className="w-4 h-4 text-gray-200 dark:text-gray-600" />
+      <FaStar className="w-4 h-4 text-gray-600" />
       </div>
       </div>
       <div className="flex items-center justify-between">
