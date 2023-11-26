@@ -12,6 +12,14 @@ import SignUp from './Pages/Login/SignUp';
 import Meals from './Pages/Meals/Meals';
 import AuthProvider from './Pages/Providers/AuthProvider';
 import FoodDetails from './Pages/Home/FoodDetails';
+import Dashboard from './Pages/Dashboard/Dashboard';
+import Profile from './Pages/Dashboard/Profile';
+import ManageUser from './Pages/Dashboard/ManageUser';
+import AddMeal from './Pages/Dashboard/AddMeal';
+import AllMeals from './Pages/Dashboard/AllMeals';
+import AllReviews from './Pages/Dashboard/AllReviews';
+import ServeMeal from './Pages/Dashboard/ServeMeal';
+import UpcommingMeals from './Pages/Dashboard/UpcommingMeals';
 const router = createBrowserRouter([
   {
     path: "/",
@@ -37,7 +45,45 @@ const router = createBrowserRouter([
         path: '/meal/:id',
         element: <FoodDetails></FoodDetails>,
         loader: ({params}) => fetch(`http://localhost:5000/allmeals/${params.id}`)
-      }
+      },
+      {
+        path: '/dashboard',
+        element: <Dashboard />,
+        children: [
+          {
+            index: true,
+            element: <Profile />,
+          },
+          {
+            path: 'profile', 
+            element: <Profile />,
+          },
+          {
+            path: 'manageuser',
+            element: <ManageUser />,
+          },
+          {
+            path: 'addmeal',
+            element: <AddMeal />,
+          },
+          {
+            path: 'allmeals',
+            element: <AllMeals />,
+          },
+          {
+            path: 'allreviews',
+            element: <AllReviews />,
+          },
+          {
+            path: 'servemeals',
+            element: <ServeMeal />,
+          },
+          {
+            path: 'upcomingmeals',
+            element: <UpcommingMeals />,
+          },
+        ],
+      }      
     ]
   },
 ]);

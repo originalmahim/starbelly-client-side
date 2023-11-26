@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { FaStar } from "react-icons/fa";
 import { useLoaderData } from "react-router-dom";
-import { BiLike } from "react-icons/bi";
+// import { BiLike } from "react-icons/bi";
 
 const FoodDetails = () => {
   const product = useLoaderData();
