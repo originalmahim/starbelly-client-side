@@ -2,7 +2,7 @@ import { NavLink, Outlet } from "react-router-dom";
 
 const Dashboard = () => {
 
-          const isAdmin = true;
+          const isAdmin = false;
 
           return (
           
@@ -35,7 +35,7 @@ const Dashboard = () => {
                     : 
                     <ul>
                     <li><NavLink to= '/dashboard/profile'  className="block p-4">My Profile</NavLink></li>
-                    <li><NavLink to= '/dashboard/requeste'  className="block p-4">Requested Meals</NavLink></li>
+                    <li><NavLink to= '/dashboard/requested'  className="block p-4">Requested Meals</NavLink></li>
                     <li><NavLink to= '/dashboard/myreviews'  className="block p-4">My Reviews</NavLink></li>
                     </ul>
                     }
