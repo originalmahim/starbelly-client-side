@@ -1,8 +1,10 @@
 import { NavLink, Outlet } from "react-router-dom";
+import { useContext } from 'react';
+import { AuthContex } from './../Providers/AuthProvider';
 
 const Dashboard = () => {
 
-          const isAdmin = false;
+          const {isAdmin} = useContext(AuthContex)
 
           return (
           

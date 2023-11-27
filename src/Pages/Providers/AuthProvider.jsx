@@ -33,6 +33,8 @@ const AuthProvider = ({children}) => {
         }
    },[])
 
+   const isAdmin = true;
+
    const CreateUser = (email,password) => {
       SetLoader(true)
       return createUserWithEmailAndPassword(auth,email,password)
@@ -54,7 +56,8 @@ const AuthProvider = ({children}) => {
             LogIn,
             user,
             loader,
-            LogOut
+            LogOut,
+            isAdmin
          }
           return (
           <AuthContex.Provider value={information} >

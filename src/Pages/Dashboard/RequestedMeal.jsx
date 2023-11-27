@@ -10,7 +10,6 @@ const RequestedMeal = () => {
         const response = await fetch('/meal.json');
         const data = await response.json();
 
-        // Custom sorting logic to prioritize "Pending" over "Delivered"
         const sortedData = sortByStatus
           ? data.sort((a, b) => {
               if (a.status === sortByStatus && b.status !== sortByStatus) {
