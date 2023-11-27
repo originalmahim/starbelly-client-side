@@ -1,7 +1,7 @@
 
 import { useForm, Controller } from 'react-hook-form';
 
-const AddMeals = () => {
+const AddMeal = () => {
   const { handleSubmit, control } = useForm();
 
   const onSubmit = (data) => {
@@ -56,7 +56,59 @@ const AddMeals = () => {
           />
         </div>
 
-        {/* Add other form fields similarly */}
+        <div className="mb-4">
+          <label className="block text-sm font-medium text-gray-700">Description:</label>
+          <Controller
+            name="description"
+            control={control}
+            render={({ field }) => <textarea {...field} className="mt-1 p-2 border w-full" />}
+          />
+        </div>
+
+        <div className="mb-4">
+          <label className="block text-sm font-medium text-gray-700">Price:</label>
+          <Controller
+            name="price"
+            control={control}
+            render={({ field }) => <input {...field} type="text" className="mt-1 p-2 border w-full" />}
+          />
+        </div>
+
+        <div className="mb-4">
+          <label className="block text-sm font-medium text-gray-700">Rating:</label>
+          <Controller
+            name="rating"
+            control={control}
+            render={({ field }) => <input {...field} type="number" step="0.1" className="mt-1 p-2 border w-full" />}
+          />
+        </div>
+
+        <div className="mb-4">
+          <label className="block text-sm font-medium text-gray-700">Date:</label>
+          <Controller
+            name="date"
+            control={control}
+            render={({ field }) => <input {...field} type="date" className="mt-1 p-2 border w-full" />}
+          />
+        </div>
+
+        <div className="mb-4">
+          <label className="block text-sm font-medium text-gray-700">Distributor Name:</label>
+          <Controller
+            name="distributorName"
+            control={control}
+            render={({ field }) => <input {...field} type="text" className="mt-1 p-2 border w-full" />}
+          />
+        </div>
+
+        <div className="mb-4">
+          <label className="block text-sm font-medium text-gray-700">Admin Email:</label>
+          <Controller
+            name="adminEmail"
+            control={control}
+            render={({ field }) => <input {...field} type="email" className="mt-1 p-2 border w-full" />}
+          />
+        </div>
 
         <div className="mb-4">
           <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded">
@@ -71,4 +123,4 @@ const AddMeals = () => {
   );
 };
 
-export default AddMeals;
+export default AddMeal;
