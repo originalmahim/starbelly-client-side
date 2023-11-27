@@ -49,16 +49,16 @@ const router = createBrowserRouter([
       },
       {
         path: '/allmeals',
-        element: <Meals></Meals>
+        element: <Protected><Meals></Meals></Protected>
       },
       {
         path: '/meal/:id',
-        element: <FoodDetails></FoodDetails>,
+        element: <Protected><FoodDetails></FoodDetails></Protected>,
         loader: ({params}) => fetch(`http://localhost:5000/allmeals/${params.id}`)
       },
       {
         path: '/Checkout',
-        element: <CheckoutPage></CheckoutPage>
+        element: <Protected><CheckoutPage></CheckoutPage></Protected>
       },
       {
         path: '/dashboard',
@@ -66,7 +66,7 @@ const router = createBrowserRouter([
         children: [
           {
             index: true,
-            element: <Profile />,
+            element: <Protected><Profile /></Protected>,
           },
           {
             path: 'profile', 
@@ -98,11 +98,11 @@ const router = createBrowserRouter([
           },
           {
             path:'myreviews',
-            element: <MyReviews></MyReviews>
+            element: <Protected><MyReviews></MyReviews></Protected>
           },
           {
             path: 'requested',
-            element: <RequestedMeal></RequestedMeal>
+            element: <Protected><RequestedMeal></RequestedMeal></Protected>
           }
         ],
       }      
