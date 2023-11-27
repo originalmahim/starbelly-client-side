@@ -1,11 +1,13 @@
-import  { useState } from 'react';
+import  {  useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-
+import Swal from 'sweetalert2';
 const ManageUser = () => {
+
   const [searchTerm, setSearchTerm] = useState('');
+
   
-  const { data } = useQuery({
+  const { data, refetch } = useQuery({
     queryKey: ['users'],
     queryFn: async () => {
       const res = await axios.get('http://localhost:5000/users');
@@ -13,7 +15,35 @@ const ManageUser = () => {
     },
   });
 
-  // Ensure that data is an array before filtering
+  const handleMakeAdmin = info => {
+    Swal.fire({
+    title: 'Are you sure?',
+    text: `${info.name} will be promoted to Admin role !`,
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Make Admin'
+    }).then((result) => {
+    if (result.isConfirmed) {
+    axios.patch(`http://localhost:5000/users/${info?.email}/${info._id}`)
+    .then(res =>{
+    console.log(res.data)
+    if(res.data.modifiedCount > 0){
+    refetch();
+    Swal.fire({
+    icon: "success",
+    title: `${info.name} is an Admin Now!`,
+    showConfirmButton: false,
+    timer: 1500
+    });
+    }
+    })
+    }
+    })
+    }
+
+
   const filteredUsers = Array.isArray(data)
     ? data.filter(
         (user) =>
@@ -49,7 +79,7 @@ const ManageUser = () => {
                 <td className="py-2 px-4 border-b">{user.name}</td>
                 <td className="py-2 px-4 border-b">{user.email}</td>
                 <td className="py-2 px-4 border-b">
-                  {user.role == 'admin' ? 'Admin' : <button className="bg-blue-500 text-white px-3 py-1 rounded">Make Admin</button>}
+                  {user.role == 'admin' ? 'Admin' : <button onClick={() => handleMakeAdmin(user)} className="bg-blue-500 text-white px-3 py-1 rounded">Make Admin</button>}
                 </td>
                 <td className="py-2 px-4 border-b">
                   <span className="text-green-500 text-center">{user.subscriptionStatus}</span>
