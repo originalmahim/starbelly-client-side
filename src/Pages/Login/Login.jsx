@@ -26,7 +26,7 @@ const Login = () => {
         email: result.user?.email,
         name: result.user?.displayName,
         subscriptionStatus: "Bronze",
-        isAdmin:false
+        role:"member"
     }
     axios.post('http://localhost:5000/users', userInfo)
     .then(res =>{

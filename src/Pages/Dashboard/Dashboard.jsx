@@ -1,10 +1,27 @@
+
+import { useContext, useEffect, useState } from "react";
 import { NavLink, Outlet } from "react-router-dom";
-import { useContext } from 'react';
-import { AuthContex } from './../Providers/AuthProvider';
+import { AuthContex } from "../Providers/AuthProvider";
 
 const Dashboard = () => {
 
-          const {isAdmin} = useContext(AuthContex)
+  const {user} = useContext(AuthContex);
+
+  const [info, setInfo] = useState(null);
+
+  useEffect(() => {
+    fetch(`http://localhost:5000/users/${user?.email}`)
+    .then((res) => res.json())
+    .then((data) => {
+      setInfo(data);
+    })
+    .catch((error) => {
+    console.error("Error fetching data:", error);
+    });
+    }, [user?.email]);
+
+  console.log(info?.role);
+          
 
           return (
           
@@ -25,7 +42,7 @@ const Dashboard = () => {
                 <div className="flex">
                   <div className="w-1/4 text-xl font-semibold">
                     {/* Sidebar */}
-                    { isAdmin? <ul>
+                    { info?.role == 'admin' ? <ul>
                       <li><NavLink to= '/dashboard/profile'  className="block p-4">Admin Profile</NavLink></li>
                       <li><NavLink to='/dashboard/manageuser'  className="block p-4">Manage Users</NavLink></li>
                       <li><NavLink to='/dashboard/addmeal'  className="block p-4">Add Meal</NavLink></li>

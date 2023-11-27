@@ -27,7 +27,7 @@ const SignUp = () => {
         email: result.user?.email,
         name: result.user?.displayName,
         subscriptionStatus: "Bronze",
-        isAdmin:false
+        role:"member"
     }
     axios.post('http://localhost:5000/users', userInfo)
     .then(res =>{
@@ -67,7 +67,7 @@ const SignUp = () => {
               email: email,
               name: name,
               subscriptionStatus: "Bronze",
-              isAdmin:false
+              role:"member"
           }
           axios.post('http://localhost:5000/users', userInfo)
           .then(res =>{

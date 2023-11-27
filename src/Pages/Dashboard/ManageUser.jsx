@@ -13,12 +13,14 @@ const ManageUser = () => {
     },
   });
 
-  // Filter users based on search term
-  const filteredUsers = data?.filter(
-    (user) =>
-      user.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      user.email.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  // Ensure that data is an array before filtering
+  const filteredUsers = Array.isArray(data)
+    ? data.filter(
+        (user) =>
+          user.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          user.email.toLowerCase().includes(searchTerm.toLowerCase())
+      )
+    : [];
 
   return (
     <div className="container mx-auto p-4">
@@ -42,12 +44,12 @@ const ManageUser = () => {
             </tr>
           </thead>
           <tbody>
-            {filteredUsers?.map((user) => (
+            {filteredUsers.map((user) => (
               <tr key={user._id}>
                 <td className="py-2 px-4 border-b">{user.name}</td>
                 <td className="py-2 px-4 border-b">{user.email}</td>
                 <td className="py-2 px-4 border-b">
-                  {user.isAdmin ? 'Admin' : <button className="bg-blue-500 text-white px-3 py-1 rounded">Make Admin</button>}
+                  {user.role == 'admin' ? 'Admin' : <button className="bg-blue-500 text-white px-3 py-1 rounded">Make Admin</button>}
                 </td>
                 <td className="py-2 px-4 border-b">
                   <span className="text-green-500 text-center">{user.subscriptionStatus}</span>
