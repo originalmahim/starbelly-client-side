@@ -19,8 +19,6 @@ const Dashboard = () => {
     console.error("Error fetching data:", error);
     });
     }, [user?.email]);
-
-  console.log(info?.role);
           
 
           return (
