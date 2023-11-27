@@ -1,37 +1,54 @@
-import { FaStar } from "react-icons/fa";
+import { useState, useEffect } from 'react';
+
 const MyReviews = () => {
-          return (
-<div>
-          <h1 className="text-xl font-semibold">My All Reviews Are Here </h1>
-          <div>
-                    <ul>
-                      <li>
-                    <div className="container flex flex-col w-full  p-6 mx-auto divide-y border-2 my-2 rounded-md bg-white">
-                    <div className="flex justify-between p-4">
-                    <div className="flex space-x-4">
-                    <div>
-                    <img src="https://source.unsplash.com/100x100/?portrait" alt="" className="object-cover w-12 h-12 rounded-full " />
-                    </div>
-                    <div>
-                    <h4 className="font-bold text-black">Leroy Jenkins</h4>
-                    <span className="text-xs text-black">2 days ago</span>
-                    </div>
-                    </div>
-                    <div className="flex items-center space-x-2 text-yellow-500">
-                    <FaStar></FaStar>
-                    <span className="text-xl font-bold">4.5</span>
-                    </div>
-                    </div>
-                    <div className="p-4 space-y-2 text-sm text-black">
-                    <p>Vivamus sit amet turpis leo. Praesent varius eleifend elit, eu dictum lectus consequat vitae. Etiam ut dolor id justo fringilla finibus.</p>
-                    <p>Donec eget ultricies diam, eu molestie arcu. Etiam nec lacus eu mauris cursus venenatis. Maecenas gravida urna vitae accumsan feugiat. Vestibulum commodo, ante sit urna purus rutrum sem.</p>
-                    </div>
-                    </div>
-                    </li>
-                    </ul>
-                    </div>                    
-          </div>
-          );
+  const [userReviews, setUserReviews] = useState([]);
+
+  useEffect(() => {
+    const fetchUserReviews = async () => {
+      try {
+        const response = await fetch('/reviews.json'); 
+        const data = await response.json();
+        setUserReviews(data);
+      } catch (error) {
+        console.error('Error fetching user reviews:', error);
+      }
+    };
+
+    fetchUserReviews();
+  }, []);
+
+  return (
+    <div className="container mx-auto p-4">
+      <h1 className="text-2xl font-bold mb-4">My Reviews</h1>
+
+      <div className="overflow-x-auto">
+        <table className="min-w-full border border-gray-300">
+          <thead className="bg-gray-100">
+            <tr>
+              <th className="py-2 px-4 border-b text-left">Meal Title</th>
+              <th className="py-2 px-4 border-b text-left">Likes</th>
+              <th className="py-2 px-4 border-b text-left">Reviews</th>
+              <th className="py-2 px-4 border-b text-left">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {userReviews.map((review) => (
+              <tr key={review.id}>
+                <td className="py-2 px-4 border-b">{review.mealTitle}</td>
+                <td className="py-2 px-4 border-b">{review.likes}</td>
+                <td className="py-2 px-4 border-b">{review.reviewsCount}</td>
+                <td className="py-2 px-4 border-b items-center">
+                  <button className="bg-blue-500 text-white px-3 py-1 mr-2 rounded">Edit</button>
+                  <button className="bg-red-500 text-white px-3 py-1 mr-2 rounded">Delete</button>
+                  <button className="bg-green-500 text-white px-3 py-1 rounded">View Meal</button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
 };
 
 export default MyReviews;

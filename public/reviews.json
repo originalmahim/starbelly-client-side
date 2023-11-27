@@ -1,0 +1,33 @@
+[
+          {
+            "id": 1,
+            "mealTitle": "Chicken Alfredo",
+            "likes": 20,
+            "reviewsCount": 12
+          },
+          {
+            "id": 2,
+            "mealTitle": "Vegetarian Stir Fry",
+            "likes": 15,
+            "reviewsCount": 8
+          },
+          {
+            "id": 3,
+            "mealTitle": "Salmon Teriyaki",
+            "likes": 25,
+            "reviewsCount": 18
+          },
+          {
+            "id": 4,
+            "mealTitle": "Pasta Carbonara",
+            "likes": 18,
+            "reviewsCount": 10
+          },
+          {
+            "id": 5,
+            "mealTitle": "Margherita Pizza",
+            "likes": 30,
+            "reviewsCount": 22
+          }
+        ]
+        
