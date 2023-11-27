@@ -5,6 +5,7 @@ import { GoogleAuthProvider, getAuth, signInWithPopup } from 'firebase/auth';
 import Swal from 'sweetalert2';
 import { AuthContex } from '../Providers/AuthProvider';
 import app from '../Shared/firebase.config';
+import axios from 'axios';
 
 // import { Helmet } from 'react-helmet';
 
@@ -20,15 +21,33 @@ const Login = () => {
    
   const handleGoogleSignup = () => {
     signInWithPopup(auth,provider)
-    .then(() => {
-      Swal.fire(
-        'Loged In',
-        'You have Loged In successfully',
-          'success'
-      )
-       navigate(location?.state ? location.state : '/')
+    .then((result) => {
+      const userInfo = {
+        email: result.user?.email,
+        name: result.user?.displayName,
+        subscriptionStatus: "Bronze",
+        isAdmin:false
+    }
+    axios.post('http://localhost:5000/users', userInfo)
+    .then(res =>{
+        console.log(res.data);
+        Swal.fire(
+          'Loged In',
+          'You have Loged In successfully',
+            'success'
+        )
+        navigate(location?.state ? location.state : '/')
+    })
      })
  }
+//  const handleGoogleSignIn = () =>{
+//   googleSignIn()
+//   .then(result =>{
+//       console.log(result.user);
+      
+      
+//   })
+// }
 
  const handleLogin = e => {
   e.preventDefault()

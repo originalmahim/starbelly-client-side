@@ -6,6 +6,7 @@ import { GoogleAuthProvider, getAuth, signInWithPopup, updateProfile } from 'fir
 import Swal from 'sweetalert2'
 import { AuthContex } from '../Providers/AuthProvider';
 import app from '../Shared/firebase.config';
+import axios from 'axios';
 // import { Helmet } from 'react-helmet';
 
 
@@ -21,13 +22,23 @@ const SignUp = () => {
 
   const handleGoogleSignup = () => {
     signInWithPopup(auth,provider)
-    .then(() => {
-      Swal.fire(
-      'Account Created',
-      'You have Created Account successfully',
-        'success'
-      )
-       navigate(location?.state ? location.state : '/')
+    .then((result) => {
+      const userInfo = {
+        email: result.user?.email,
+        name: result.user?.displayName,
+        subscriptionStatus: "Bronze",
+        isAdmin:false
+    }
+    axios.post('http://localhost:5000/users', userInfo)
+    .then(res =>{
+        console.log(res.data);
+        Swal.fire(
+          'Account Created',
+          'You have Created Account successfully',
+            'success'
+          )
+        navigate(location?.state ? location.state : '/')
+    })
      })
  }
 
@@ -51,15 +62,24 @@ const SignUp = () => {
           displayName: name,
           photoURL: url,
           })
-          .then( () => {
-            Swal.fire(
-              'Account Created',
-              'You have Created Account successfully',
-              'success'
-              )
+          .then(() => {
+            const userInfo = {
+              email: email,
+              name: name,
+              subscriptionStatus: "Bronze",
+              isAdmin:false
+          }
+          axios.post('http://localhost:5000/users', userInfo)
+          .then(res =>{
+              console.log(res.data);
+              Swal.fire(
+                'Account Created',
+                'You have Created Account successfully',
+                  'success'
+                )
               navigate(location?.state ? location.state : '/')
-    
           })
+           })
           
         })
         .catch(error => {

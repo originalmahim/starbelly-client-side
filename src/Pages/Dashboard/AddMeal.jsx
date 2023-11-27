@@ -2,7 +2,7 @@
 import { useForm, Controller } from 'react-hook-form';
 
 const AddMeal = () => {
-  const { handleSubmit, control } = useForm();
+  const { handleSubmit, control, formState: { errors } } = useForm();
 
   const onSubmit = (data) => {
     // Handle form submission logic here
@@ -19,8 +19,10 @@ const AddMeal = () => {
           <Controller
             name="mealTitle"
             control={control}
+            rules={{ required: 'Meal Title is required' }}
             render={({ field }) => <input {...field} type="text" className="mt-1 p-2 border w-full" />}
           />
+          {errors.mealTitle && <span className="text-red-500">{errors.mealTitle.message}</span>}
         </div>
 
         <div className="mb-4">
@@ -28,14 +30,17 @@ const AddMeal = () => {
           <Controller
             name="mealCategory"
             control={control}
+            rules={{ required: 'Meal Category is required' }}
             render={({ field }) => (
               <select {...field} className="mt-1 p-2 border w-full">
+                <option >Select A Meal Catagory</option>
                 <option value="Breakfast">Breakfast</option>
                 <option value="Lunch">Lunch</option>
                 <option value="Dinner">Dinner</option>
               </select>
             )}
           />
+          {errors.mealCategory && <span className="text-red-500">{errors.mealCategory.message}</span>}
         </div>
 
         <div className="mb-4">
