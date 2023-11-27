@@ -27,6 +27,7 @@ import {
   QueryClient,
   QueryClientProvider,
 } from '@tanstack/react-query'
+import Protected from './Pages/Providers/Protected';
 
 const queryClient = new QueryClient();
 const router = createBrowserRouter([
@@ -61,7 +62,7 @@ const router = createBrowserRouter([
       },
       {
         path: '/dashboard',
-        element: <Dashboard />,
+        element: <Protected><Dashboard /></Protected>,
         children: [
           {
             index: true,
