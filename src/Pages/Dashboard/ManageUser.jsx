@@ -75,7 +75,7 @@ const ManageUser = () => {
                   <button className="bg-blue-500 text-white px-3 py-1 rounded">Make Admin</button>
                 </td>
                 <td className="py-2 px-4 border-b">
-                  <span className="text-green-500">{user.subscriptionStatus}</span>
+                  <span className="text-green-500 text-center">{user.subscriptionStatus}</span>
                 </td>
               </tr>
             ))}
