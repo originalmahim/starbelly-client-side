@@ -1,8 +1,12 @@
 import { useContext } from "react";
 import { useLoaderData } from "react-router-dom";
 import { AuthContex } from './../Providers/AuthProvider';
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
+import ChelkOutForm from "./ChelkOutForm";
 
 const CheckoutPage = () => {
+  const stripePromiss = loadStripe('pk_test_51OFW1EI046RRop3ptKjeKIdZN7a9rxfZkGsDCdAOExlV6MqPTSnnjYsW4yljF6u5fqCHqLmLV3v1vetWUOrgSqbx009Jd7Lz3x')
   const paymentInfo = useLoaderData()
   const {user} = useContext(AuthContex)
   console.log(user.displayName);
@@ -26,62 +30,45 @@ const CheckoutPage = () => {
               <form>
                 <h2 className="text-lg font-medium mb-4">Billing Details</h2>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                  {['Full Name', 'Email Address', 'Address', 'City', 'Zip Code'].map((label) => (
-                    <div key={label}>
-                      <label htmlFor={label.toLowerCase()} className="block text-sm font-medium text-gray-600">
-                        {label}
-                      </label>
-                      <input
-                        type={label.toLowerCase() === 'email' ? 'email' : 'text'}
-                        id={label.toLowerCase()}
-                        name={label.toLowerCase()}
-                        className="mt-1 p-2 w-full border rounded-md"
-                      />
-                    </div>
-                  ))}
+              {['Full Name', 'Email Address', 'Address', 'City', 'Zip Code'].map((label) => (
+                <div key={label}>
+                  <label htmlFor={label.toLowerCase()} className="block text-sm font-medium text-gray-600">
+                    {label}
+                  </label>
+                  <input
+                    type={label.toLowerCase() === 'email' ? 'email' : 'text'}
+                    id={label.toLowerCase()}
+                    name={label.toLowerCase()}
+                    className="mt-1 p-2 w-full border rounded-md"
+                    defaultValue={
+                      label.toLowerCase() === 'full name' ? user.displayName : label.toLowerCase() === 'email address' ? user.email : ''
+                    }
+                  />
                 </div>
-  
-                <div className="mt-6">
-                  <h2 className="text-lg font-medium mb-4">Payment Details</h2>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    {['Card Number', 'Expiry Date', 'CVV'].map((label) => (
-                      <div key={label}>
-                        <label htmlFor={label.toLowerCase()} className="block text-sm font-medium text-gray-600">
-                          {label}
-                        </label>
-                        <input
-                          type={label.toLowerCase() === 'card number' ? 'text' : 'text'}
-                          id={label.toLowerCase().replace(' ', '')}
-                          name={label.toLowerCase().replace(' ', '')}
-                          className="mt-1 p-2 w-full border rounded-md"
-                        />
-                      </div>
-                    ))}
-                  </div>
-                </div>
-  
-                {/* Order summary section */}
-                <div className="mt-6">
+              ))}
+            </div>
+            <div className="mt-6">
                   <h2 className="text-lg font-medium mb-4">Order Summary</h2>
                   <div className="flex justify-between items-center border-b pb-2">
                     <span>Subtotal</span>
                     <span>${paymentInfo?.price}</span>
-                  </div>
+                   </div>
                   <div className="flex justify-between items-center pt-2">
                     <span>Total</span>
                     <span className="text-xl font-semibold">${paymentInfo?.price}</span>
                   </div>
                 </div>
   
-                {/* Checkout button */}
                 <div className="mt-6">
-                  <button
-                    type="submit"
-                    className="w-full bg-blue-500 text-white p-3 rounded-md hover:bg-blue-600"
-                  >
-                    Complete Purchase
-                  </button>
+                  <div className="">
+           <Elements stripe={stripePromiss} >
+          <ChelkOutForm></ChelkOutForm>
+          </Elements>                   
+          </div>
                 </div>
+  
+                {/* Order summary section */}
+                
               </form>
             </div>
           </div>
