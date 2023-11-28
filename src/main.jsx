@@ -28,6 +28,7 @@ import {
 } from '@tanstack/react-query'
 import Protected from './Pages/Providers/Protected';
 import Meals from './Pages/AllMeals/Meals';
+import Upcoming from './Pages/Upcoming/upcoming';
 
 const queryClient = new QueryClient();
 const router = createBrowserRouter([
@@ -51,6 +52,11 @@ const router = createBrowserRouter([
         path: '/allmeals',
         element: <Protected><Meals></Meals></Protected>
       },
+      {
+        path: '/upcomingmeals',
+        element: <Protected><Upcoming></Upcoming></Protected>
+      },
+
       {
         path: '/meal/:id',
         element: <Protected><FoodDetails></FoodDetails></Protected>,
