@@ -9,7 +9,6 @@ import Home from './Pages/Home/Home';
 import Header from './Pages/Shared/Header/Header';
 import Login from './Pages/Login/Login';
 import SignUp from './Pages/Login/SignUp';
-import Meals from './Pages/Meals/Meals';
 import AuthProvider from './Pages/Providers/AuthProvider';
 import FoodDetails from './Pages/Home/FoodDetails';
 import Dashboard from './Pages/Dashboard/Dashboard';
@@ -28,6 +27,7 @@ import {
   QueryClientProvider,
 } from '@tanstack/react-query'
 import Protected from './Pages/Providers/Protected';
+import Meals from './Pages/AllMeals/Meals';
 
 const queryClient = new QueryClient();
 const router = createBrowserRouter([
