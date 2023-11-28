@@ -40,7 +40,7 @@ const Pricing = () => {
           <span className="ml-3">Limited customization</span>
           </li>
           </ul>
-          <Link to = "/booking"  className="flex justify-center items-center bg-yellow-400 rounded-xl py-5 px-4 text-center text-black text-xl">
+          <Link to = "/Checkout/6565df40bddf208dadb7b5d9"  className="flex justify-center items-center bg-yellow-400 rounded-xl py-5 px-4 text-center text-black text-xl">
           Choose Plan
           
           </Link>
@@ -72,7 +72,7 @@ const Pricing = () => {
           <span className="ml-3">Customizable menu</span>
           </li>
           </ul>
-          <Link to = "/booking"  className="flex justify-center items-center bg-white rounded-xl py-5 px-4 text-center text-black text-xl">
+          <Link to = "/Checkout/6565df40bddf208dadb7b5da"  className="flex justify-center items-center bg-white rounded-xl py-5 px-4 text-center text-black text-xl">
           Choose Plan
           <svg
                     className="w-3.5 h-3.5 ml-2"
@@ -96,7 +96,7 @@ const Pricing = () => {
           <div className="mb-7 pb-7 flex items-center border-b border-gray-300">
           
           <div className="ml-5">
-          <span className="block text-2xl font-semibold">Platinum Plans</span>
+          <span className="block text-2xl font-semibold">Platinum Package</span>
           <span>
           <span className="font-medium text-gray-500 text-xl align-top">$&thinsp;</span>
           <span className="text-3xl font-bold">2499 </span>
@@ -118,7 +118,7 @@ const Pricing = () => {
           <span className="ml-3">Personalized menu</span>
           </li>
           </ul>
-          <Link to = "/booking"  className="flex justify-center items-center bg-yellow-400 rounded-xl py-5 px-4 text-center text-black text-xl">
+          <Link to = "/Checkout/6565df40bddf208dadb7b5db"  className="flex justify-center items-center bg-yellow-400 rounded-xl py-5 px-4 text-center text-black text-xl">
           Choose Plan
           
           </Link>

@@ -1,4 +1,12 @@
+import { useContext } from "react";
+import { useLoaderData } from "react-router-dom";
+import { AuthContex } from './../Providers/AuthProvider';
+
 const CheckoutPage = () => {
+  const paymentInfo = useLoaderData()
+  const {user} = useContext(AuthContex)
+  console.log(user.displayName);
+  console.log(user.email);
   return (
           <div className="bg-gray-100 font-sans max-w-7xl mx-auto">
           <div className="container mx-auto p-4 mt-8">
@@ -9,12 +17,8 @@ const CheckoutPage = () => {
               <div className="mb-6">
                 <h2 className="text-lg font-medium mb-2">Product Summary</h2>
                 <div className="flex justify-between items-center border-b pb-2">
-                  <span>Product Name</span>
-                  <span>$99.99</span>
-                </div>
-                <div className="flex justify-between items-center pt-2">
-                  <span>Shipping</span>
-                  <span>$9.99</span>
+                  <span className="text-xl font-bold">{paymentInfo?.name} Subscription Plans For 1 Mounth</span>
+                  <span className="text-xl font-bold">${paymentInfo?.price}</span>
                 </div>
               </div> 
   
@@ -61,11 +65,11 @@ const CheckoutPage = () => {
                   <h2 className="text-lg font-medium mb-4">Order Summary</h2>
                   <div className="flex justify-between items-center border-b pb-2">
                     <span>Subtotal</span>
-                    <span>$99.99</span>
+                    <span>${paymentInfo?.price}</span>
                   </div>
                   <div className="flex justify-between items-center pt-2">
                     <span>Total</span>
-                    <span className="text-xl font-semibold">$109.98</span>
+                    <span className="text-xl font-semibold">${paymentInfo?.price}</span>
                   </div>
                 </div>
   

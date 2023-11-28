@@ -63,8 +63,9 @@ const router = createBrowserRouter([
         loader: ({params}) => fetch(`http://localhost:5000/allmeals/${params.id}`)
       },
       {
-        path: '/Checkout',
-        element: <Protected><CheckoutPage></CheckoutPage></Protected>
+        path: '/Checkout/:id',
+        element: <Protected><CheckoutPage></CheckoutPage></Protected>,
+        loader: ({params}) => fetch(`http://localhost:5000/package/${params.id}`)
       },
       {
         path: '/dashboard',
