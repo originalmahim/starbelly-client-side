@@ -6,6 +6,8 @@ import { FaStar } from 'react-icons/fa';
 
 const Meals = () => {
   const [searchTerm, setSearchTerm] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState('');
+  const [priceRange, setPriceRange] = useState({ min: 0, max: Infinity });
 
   const { data: brands = [] } = useQuery({
     queryKey: ['items'],
@@ -15,9 +17,19 @@ const Meals = () => {
     },
   });
 
-  const filteredBrands = brands.filter((brand) =>
-    brand.title.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const filteredBrands = brands
+    .filter((brand) =>
+      brand.title.toLowerCase().includes(searchTerm.toLowerCase())
+    )
+    .filter((brand) =>
+      selectedCategory ? brand.category === selectedCategory : true
+    )
+    .filter(
+      (brand) =>
+        brand.price >= priceRange.min && brand.price <= priceRange.max
+    );
+
+  const categories = [...new Set(brands.map((brand) => brand.category))];
 
   return (
     <div className="max-w-7xl mx-auto">
@@ -26,7 +38,9 @@ const Meals = () => {
         <p>Our ALL Meals Items Are on Specific Cards</p>
       </div>
       <div>
-        {/* Search input */}
+        <div className='flex items-center gap-8 justify-center'>
+          <div>
+
         <h1 className='my-3 text-xl'>Search by Meal title</h1>
         <input
           type="text"
@@ -35,6 +49,46 @@ const Meals = () => {
           onChange={(e) => setSearchTerm(e.target.value)}
           className="border p-2 mb-4 w-full"
         />
+          </div>
+        <div>
+        <h1 className="my-3 text-xl">Filter by Category</h1>
+        <select
+          value={selectedCategory}
+          onChange={(e) => setSelectedCategory(e.target.value)}
+          className="border p-2 mb-4 w-full"
+        >
+          <option value="">All Categories</option>
+          {categories.map((category) => (
+            <option key={category} value={category}>
+              {category}
+            </option>
+          ))}
+        </select>
+        </div>
+        <div>
+        <h1 className="my-3 text-xl">Filter by Price Range</h1>
+        <div className="flex space-x-2">
+          <input
+            type="number"
+            placeholder="Min Price"
+            value={priceRange.min}
+            onChange={(e) =>
+              setPriceRange({ ...priceRange, min: e.target.valueAsNumber })
+            }
+            className="border p-2 w-full"
+          />
+          <input
+            type="number"
+            placeholder="Max Price"
+            value={priceRange.max}
+            onChange={(e) =>
+              setPriceRange({ ...priceRange, max: e.target.valueAsNumber })
+            }
+            className="border p-2 w-full"
+          />
+        </div>
+        </div>
+        </div>
 
         <div className="lg:px-0 px-3 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
           {filteredBrands.map((brand) => (
