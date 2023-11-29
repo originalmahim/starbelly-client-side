@@ -29,14 +29,13 @@ const Login = () => {
         role:"member"
     }
     axios.post('http://localhost:5000/users', userInfo)
-    .then(res =>{
-        console.log(res.data);
+    .then(() =>{
+      navigate(location?.state ? location.state : '/');
         Swal.fire(
           'Loged In',
           'You have Loged In successfully',
             'success'
         )
-        navigate(location?.state ? location.state : '/')
     })
      })
  }
@@ -57,12 +56,12 @@ const Login = () => {
   setLoginError('')
   LogIn(email,password)
   .then(() => {
+    navigate(location?.state ? location.state : '/');
     Swal.fire(
       'Loged In',
       'You have Loged In successfully',
         'success'
       )
-      navigate(location?.state ? location.state : '/')
   })
   .catch(error => {
     setLoginError(error.message)
