@@ -2,15 +2,36 @@
 import { useContext } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { AuthContex } from './../Providers/AuthProvider';
+import axios from 'axios';
+import Swal from 'sweetalert2';
 
 const AddMeal = () => {
   const { handleSubmit, control, formState: { errors } } = useForm();
 
   const {user} = useContext(AuthContex)
 
-  const onSubmit = (data) => {
-    console.log(data);
+  const onSubmit = (data, e) => {
+    e.preventDefault();
+  
+    axios.post('http://localhost:5000/allmeals', data)
+      .then((response) => {
+        console.log(response.data);
+        Swal.fire(
+          'Meal Added',
+          'You have Added A New Meal successfully',
+          'success'
+        );
+      })
+      .catch((error) => {
+        console.error('Error adding meal:', error);
+        Swal.fire(
+          'Error',
+          'An error occurred while adding the meal',
+          'error'
+        );
+      });
   };
+  
   const onAddToUpcomingClick = (data) => {
     console.log(data);
   };

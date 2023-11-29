@@ -10,7 +10,7 @@ const Meals = () => {
   const [selectedCategory, setSelectedCategory] = useState('');
   const [priceRange, setPriceRange] = useState({ min: 0, max: Infinity });
   const [currentPage, setCurrentPage] = useState(0);
-  const itemsPerPage = 12;
+  const itemsPerPage = 10;
 
   const { data: brands = [] } = useQuery({
     queryKey: ['items'],
