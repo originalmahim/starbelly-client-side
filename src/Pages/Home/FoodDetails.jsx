@@ -97,7 +97,7 @@ const FoodDetails = () => {
                       <p className="text-xl mb-3">{product?.mealDescription}</p>
                       <h1 className="text-xl text-green-400">Ingredients:</h1>
                       <ol>
-                      {product.ingredients.map((food) => (
+                      {product?.ingredients?.map((food) => (
                       <li key={food}>{food}</li>
                       ))}
                       </ol>
