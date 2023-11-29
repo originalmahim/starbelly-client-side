@@ -1,20 +1,18 @@
 import { useContext } from "react";
 import { useLoaderData } from "react-router-dom";
 import { AuthContex } from './../Providers/AuthProvider';
-import { Elements } from "@stripe/react-stripe-js";
-import { loadStripe } from "@stripe/stripe-js";
 import ChelkOutForm from "./ChelkOutForm";
+import { loadStripe } from "@stripe/stripe-js";
+import { Elements } from '@stripe/react-stripe-js';
 
+const stripePromiss = loadStripe('pk_test_51OFW1EI046RRop3ptKjeKIdZN7a9rxfZkGsDCdAOExlV6MqPTSnnjYsW4yljF6u5fqCHqLmLV3v1vetWUOrgSqbx009Jd7Lz3x')
 const CheckoutPage = () => {
-  const stripePromiss = loadStripe('pk_test_51OFW1EI046RRop3ptKjeKIdZN7a9rxfZkGsDCdAOExlV6MqPTSnnjYsW4yljF6u5fqCHqLmLV3v1vetWUOrgSqbx009Jd7Lz3x')
   const paymentInfo = useLoaderData()
   const {user} = useContext(AuthContex)
-  console.log(user.displayName);
-  console.log(user.email);
   return (
           <div className="bg-gray-100 font-sans max-w-7xl mx-auto">
           <div className="container mx-auto p-4 mt-8">
-            <div className="bg-white p-8 rounded shadow-md">
+          <div className="bg-white p-8 rounded shadow-md">
               <h1 className="text-2xl font-semibold mb-6">Checkout</h1>
   
               {/* Product summary section */}
@@ -61,15 +59,14 @@ const CheckoutPage = () => {
   
                 <div className="mt-6">
                   <div className="">
-           <Elements stripe={stripePromiss} >
-          <ChelkOutForm></ChelkOutForm>
-          </Elements>                   
+                            
           </div>
                 </div>
-  
-                {/* Order summary section */}
                 
               </form>
+              <Elements stripe={stripePromiss} >
+          <ChelkOutForm data={paymentInfo} ></ChelkOutForm>
+          </Elements>  
             </div>
           </div>
         </div>

@@ -1,114 +1,105 @@
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
+import { useContext, useEffect, useState } from "react";
+import { AuthContex } from './../Providers/AuthProvider';
 import axios from "axios";
-import { useEffect, useState } from "react";
 
-const CheckoutForm = () => {
+const ChelkOutForm = ({ data }) => {
+const [error, setError] = useState('');
+  const [clientSecret, setClientSecret] = useState('')
   const stripe = useStripe();
   const elements = useElements();
-const [error, setError] = useState('')
+const { user } = useContext(AuthContex)
 
-          useEffect(() => {
-          fetch('http://localhost:5000/cart')
-          .then(res => res.json())
-          .then(data => console.log(data))
-          },[])
+  const totalPrice = data.price;
 
-          useEffect(() => {
-             axios.post('/')        
-          },[])
+  useEffect(() => {
+    if (totalPrice > 0) {
+      axios.post('http://localhost:5000/create-payment-intent', { price: totalPrice })
+        .then(res => {
+          console.log(res.data.clientSecret);
+          setClientSecret(res.data.clientSecret);
+        })
+    }
+
+  }, [totalPrice])
+
+
 
   const handleSubmit = async (event) => {
+    console.log('payment');
     event.preventDefault();
 
+
     if (!stripe || !elements) {
-      return;
+      return
     }
 
-    const card = elements.getElement(CardElement);
+    const card = elements.getElement(CardElement)
 
-    if (card == null) {
-      return;
+    if (card === null) {
+      return
     }
 
-    // Get additional form data
-    const email = event.target.email.value;
-//     const zipCode = event.target.zipCode.value;
-    const cardholderName = event.target.cardholderName.value;
-
-    // Use the collected data as needed, for example, include it in the payment method creation
     const { error, paymentMethod } = await stripe.createPaymentMethod({
       type: 'card',
-      card,
-      billing_details: {
-        name: cardholderName,
-        email: email,
-      },
-    });
+      card
+    })
 
     if (error) {
-      console.log('[error]', error);
-      setError(error.message)
-    } else {
-      console.log('[PaymentMethod]', paymentMethod);
-      setError('')
+      console.log('payment error', error);
+    setError(error.message);
+    } 
+    else {
+      console.log('payment method', paymentMethod)
+      setError('');
     }
-  };
 
+    // confirm payment
+    const { paymentIntent, error: confirmError } = await stripe.confirmCardPayment(clientSecret, {
+      payment_method: {
+        card: card,
+        billing_details: {
+          email: user?.email || 'anonymous',
+          name: user?.displayName || 'anonymous'
+        }
+      }
+    })
+
+    if (confirmError) {
+      console.log(confirmError.message)
+      setError(confirmError.message)
+    }
+    else {
+      console.log('payment intent', paymentIntent)
+      if (paymentIntent.status === 'succeeded') {
+        console.log('transaction id', paymentIntent.id);
+      }
+    }
+  }
   return (
-    <div className="container mx-auto my-8">
-      <div className="bg-white ">
-        <h2 className="text-2xl font-semibold mb-6 text-center">Secure Checkout</h2>
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <label htmlFor="cardholderName" className="block text-sm font-medium text-gray-700">
-              Cardholder Name
-            </label>
-            <input
-              type="text"
-              id="cardholderName"
-              name="cardholderName"
-              autoComplete="name"
-              className="mt-1 p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
-              required
-            />
-          </div>
-
-          <div>
-            <label htmlFor="cardDetails" className="block text-sm font-medium text-gray-700">
-              Card Details
-            </label>
-            <div className="mt-1 p-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500">
-              <CardElement
+    <form onSubmit={handleSubmit}>
+            <CardElement
                 options={{
-                  style: {
-                    base: {
-                      fontSize: "16px",
-                      color: "#424770",
-                      "::placeholder": {
-                        color: "#aab7c4",
-                      },
+                    style: {
+                        base: {
+                            fontSize: "16px",
+                            color: "#424770",
+                            "::placeholder": {
+                                color: "#aab7c4",
+                            },
+                        },
+                        invalid: {
+                            color: "#9e2146",
+                        },
                     },
-                    invalid: {
-                      color: "#9e2146",
-                    },
-                  },
                 }}
-              />
-            </div>
-          </div>
-
-          <button
-            type="submit"
-            className="bg-blue-500 text-white py-3 px-6 rounded-md w-full hover:bg-blue-600 focus:outline-none focus:shadow-outline-blue"
-            disabled={!stripe}
-          >
-            Complete Purchase
-          </button>
+            />
+            <button className="btn btn-sm btn-primary my-4" type="submit" disabled={!stripe}>
+                Proceed Checkout
+            </button>
+            {error && <p className="text-xl text-red-500">{error}</p>}
         </form>
-        <p className="text-red-500 text-center">{error}</p>
-      </div>
-    </div>
   );
-};
+}
 
-export default CheckoutForm;
+export default ChelkOutForm;
