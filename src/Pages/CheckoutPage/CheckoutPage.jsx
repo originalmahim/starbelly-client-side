@@ -28,7 +28,7 @@ const CheckoutPage = () => {
               <form>
                 <h2 className="text-lg font-medium mb-4">Billing Details</h2>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-              {['Full Name', 'Email Address', 'Address', 'City', 'Zip Code'].map((label) => (
+              {['Full Name', 'Email Address'].map((label) => (
                 <div key={label}>
                   <label htmlFor={label.toLowerCase()} className="block text-sm font-medium text-gray-600">
                     {label}

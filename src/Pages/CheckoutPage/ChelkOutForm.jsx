@@ -2,9 +2,14 @@ import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { useContext, useEffect, useState } from "react";
 import { AuthContex } from './../Providers/AuthProvider';
 import axios from "axios";
+ 
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 const ChelkOutForm = ({ data }) => {
+  const navigate = useNavigate()
 const [error, setError] = useState('');
+  const [success, setSuccess] = useState('')
   const [clientSecret, setClientSecret] = useState('')
   const stripe = useStripe();
   const elements = useElements();
@@ -16,7 +21,6 @@ const { user } = useContext(AuthContex)
     if (totalPrice > 0) {
       axios.post('http://localhost:5000/create-payment-intent', { price: totalPrice })
         .then(res => {
-          console.log(res.data.clientSecret);
           setClientSecret(res.data.clientSecret);
         })
     }
@@ -26,7 +30,6 @@ const { user } = useContext(AuthContex)
 
 
   const handleSubmit = async (event) => {
-    console.log('payment');
     event.preventDefault();
 
 
@@ -46,12 +49,12 @@ const { user } = useContext(AuthContex)
     })
 
     if (error) {
-      console.log('payment error', error);
     setError(error.message);
     } 
     else {
       console.log('payment method', paymentMethod)
       setError('');
+      
     }
 
     // confirm payment
@@ -70,9 +73,29 @@ const { user } = useContext(AuthContex)
       setError(confirmError.message)
     }
     else {
-      console.log('payment intent', paymentIntent)
+      console.log('payment intent', paymentIntent.id)
       if (paymentIntent.status === 'succeeded') {
-        console.log('transaction id', paymentIntent.id);
+        setSuccess('congratulations ! payment successfull')
+      //   const payment = {
+      //     email: user?.email,
+      //     price: totalPrice,
+      //     transactionId: paymentIntent.id,
+      //     date: new Date(), // utc date convert. use moment js to 
+      //     packagename: data?.name
+      // }
+      const subscriptionStatus = data?.name;
+      const payload = { subscriptionStatus };
+      const res = await axios.patch(`http://localhost:5000/users/${user.email}`, payload);
+      console.log('payment saved', res.data);
+      if (res.data.modifiedCount > 0) {
+        Swal.fire({
+          icon: "success",
+          title: "Your Payment Recived",
+          showConfirmButton: false,
+          timer: 1500
+        });
+           navigate('/dashboard')
+      }
       }
     }
   }
@@ -98,6 +121,7 @@ const { user } = useContext(AuthContex)
                 Proceed Checkout
             </button>
             {error && <p className="text-xl text-red-500">{error}</p>}
+            {success && <p className="text-xl text-green-500">{success}</p>}
         </form>
   );
 }
