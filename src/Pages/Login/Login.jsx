@@ -39,14 +39,6 @@ const Login = () => {
     })
      })
  }
-//  const handleGoogleSignIn = () =>{
-//   googleSignIn()
-//   .then(result =>{
-//       console.log(result.user);
-      
-      
-//   })
-// }
 
  const handleLogin = e => {
   e.preventDefault()
