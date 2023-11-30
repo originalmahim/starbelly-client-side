@@ -1,33 +1,44 @@
-import {  useEffect } from 'react';
+import  { useState, useEffect } from 'react';
 
 const ServeMeal = () => {
+  const [searchQuery, setSearchQuery] = useState('');
+  const [searchResults, setSearchResults] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
-              const response = await fetch(`http://localhost:5000/request`);
-              const data = await response.json();
-      
+      try {
+        const response = await fetch(`http://localhost:5000/request`);
+        const data = await response.json();
+
+        // Convert single object to array
+        const dataArray = Array.isArray(data) ? data : [data];
+
+        // Filter data based on search query
+        const filteredData = dataArray.filter(
+          (meal) =>
+            meal.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            meal.email.toLowerCase().includes(searchQuery.toLowerCase())
+        );
+
+        setSearchResults(filteredData);
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+      }
     };
 
     fetchData();
-  }, []);
-
-  const handleSortByStatus = (status) => {
-  };
+  }, [searchQuery]);
 
   return (
     <div className="container mx-auto p-4">
       <div className="mb-4">
-        <label className="mr-2">Sort by Status:</label>
-        <select
+        <label className="mr-2">Search:</label>
+        <input
+          type="text"
           className="border p-2"
-          onChange={(e) => handleSortByStatus(e.target.value)}
-          value={sortByStatus}
-        >
-          <option value="">No Sorting</option>
-          <option value="Delivered">Delivered</option>
-          <option value="Pending">Pending</option>
-        </select>
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+        />
       </div>
 
       <div className="overflow-x-auto">
