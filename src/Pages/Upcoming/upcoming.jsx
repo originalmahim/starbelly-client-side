@@ -12,7 +12,7 @@ const Upcoming = () => {
   const { data: brands = [] } = useQuery({
     queryKey: ['items'],
     queryFn: async () => {
-      const res = await axios.get('http://localhost:5000/upcoming');
+      const res = await axios.get('https://starbelly-eta.vercel.app/upcoming');
       return res.data;
     },
   });

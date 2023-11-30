@@ -30,6 +30,7 @@ import Protected from './Pages/Providers/Protected';
 import Meals from './Pages/AllMeals/Meals';
 import Upcoming from './Pages/Upcoming/upcoming';
 import Blogs from './Pages/Blogs/Blogs';
+import Contact from './Pages/Contact/Contact';
 
 const queryClient = new QueryClient();
 const router = createBrowserRouter([
@@ -61,16 +62,20 @@ const router = createBrowserRouter([
         path: '/blogs',
         element: <Blogs></Blogs>
       },
+      {
+        path: '/contact',
+        element: <Contact></Contact>
+      },
 
       {
         path: '/meal/:id',
         element: <Protected><FoodDetails></FoodDetails></Protected>,
-        loader: ({params}) => fetch(`http://localhost:5000/allmeals/${params.id}`)
+        loader: ({params}) => fetch(`https://starbelly-eta.vercel.app/allmeals/${params.id}`)
       },
       {
         path: '/Checkout/:id',
         element: <Protected><CheckoutPage></CheckoutPage></Protected>,
-        loader: ({params}) => fetch(`http://localhost:5000/package/${params.id}`)
+        loader: ({params}) => fetch(`https://starbelly-eta.vercel.app/package/${params.id}`)
       },
       {
         path: '/dashboard',
@@ -108,6 +113,7 @@ const router = createBrowserRouter([
             path: 'upcomingmeals',
             element: <UpcommingMeals />,
           },
+  
           {
             path:'myreviews',
             element: <Protected><MyReviews></MyReviews></Protected>

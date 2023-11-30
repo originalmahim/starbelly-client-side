@@ -14,7 +14,7 @@ const Profile = () => {
     "https://icon-library.com/images/platinum-icon/platinum-icon-10.jpg";
 
   useEffect(() => {
-    fetch(`http://localhost:5000/users/${user?.email}`)
+    fetch(`https://starbelly-eta.vercel.app/users/${user?.email}`)
       .then((res) => res.json())
       .then((data) => {
         setInfo(data);

@@ -5,7 +5,7 @@ import { FaStar } from 'react-icons/fa';
       const Featured = () => {
       const [foodData,setdata] = useState([])
       useEffect(() => {
-      fetch('http://localhost:5000/allmeals')
+      fetch('https://starbelly-eta.vercel.app/allmeals')
       .then((res) => res.json())
       .then((data) => {
       setdata(data);

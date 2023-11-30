@@ -13,7 +13,7 @@ const AllReviews = () => {
   const { data: meal, refetch } = useQuery({
     queryKey: ['meal'],
     queryFn: async () => {
-      const res = await axios.get('http://localhost:5000/allmeals');
+      const res = await axios.get('https://starbelly-eta.vercel.app/allmeals');
       return res.data;
     },
   });
@@ -51,7 +51,7 @@ const AllReviews = () => {
       confirmButtonText: 'Delete',
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:5000/allmeals/${info._id}`, { method: 'DELETE' })
+        fetch(`https://starbelly-eta.vercel.app/allmeals/${info._id}`, { method: 'DELETE' })
           .then((res) => res.json())
           .then((res) => {
             console.log(res);

@@ -28,7 +28,7 @@ const Login = () => {
         subscriptionStatus: "Bronze",
         role:"member"
     }
-    axios.post('http://localhost:5000/users', userInfo)
+    axios.post('https://starbelly-eta.vercel.app/users', userInfo)
     .then(() =>{
       navigate(location?.state ? location.state : '/');
         Swal.fire(

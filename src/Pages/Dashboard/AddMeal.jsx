@@ -34,7 +34,7 @@ const AddMeal = () => {
     setValue('rating', '0');
 
     try {
-      const response = await axios.post('http://localhost:5000/allmeals', data);
+      const response = await axios.post('https://starbelly-eta.vercel.app/allmeals', data);
 
       console.log(response.data);
       Swal.fire(
@@ -69,7 +69,7 @@ const AddMeal = () => {
     setValue('reviews', '0');
 
     try {
-      const response = await axios.post('http://localhost:5000/upcoming', data);
+      const response = await axios.post('https://starbelly-eta.vercel.app/upcoming', data);
 
       console.log(response.data);
       Swal.fire(

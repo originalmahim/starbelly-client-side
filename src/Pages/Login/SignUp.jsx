@@ -29,7 +29,7 @@ const SignUp = () => {
         subscriptionStatus: "Bronze",
         role:"member"
     }
-    axios.post('http://localhost:5000/users', userInfo)
+    axios.post('https://starbelly-eta.vercel.app/users', userInfo)
     .then(res =>{
         console.log(res.data);
         Swal.fire(
@@ -69,7 +69,7 @@ const SignUp = () => {
               subscriptionStatus: "Bronze",
               role:"member"
           }
-          axios.post('http://localhost:5000/users', userInfo)
+          axios.post('https://starbelly-eta.vercel.app/users', userInfo)
           .then(res =>{
               console.log(res.data);
               Swal.fire(

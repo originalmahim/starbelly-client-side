@@ -11,7 +11,7 @@ const ServeMeal = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/request`);
+        const response = await fetch(`https://starbelly-eta.vercel.app/request`);
         const data = await response.json();
 
         // Convert single object to array
@@ -44,7 +44,7 @@ const ServeMeal = () => {
       confirmButtonText: 'Update',
     }).then((result) => {
       if (result.isConfirmed) {
-        axios.patch(`http://localhost:5000/req/${info._id}`).then((res) => {
+        axios.patch(`https://starbelly-eta.vercel.app/req/${info._id}`).then((res) => {
           console.log(res.data);
           if (res.data.modifiedCount > 0) {
             Swal.fire({

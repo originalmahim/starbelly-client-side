@@ -16,7 +16,7 @@ const Meals = () => {
   const { data: brands = [] } = useQuery({
     queryKey: ['items'],
     queryFn: async () => {
-      const res = await axios.get('http://localhost:5000/allmeals');
+      const res = await axios.get('https://starbelly-eta.vercel.app/allmeals');
       return res.data;
     },
   });

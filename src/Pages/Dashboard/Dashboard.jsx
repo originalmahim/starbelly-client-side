@@ -8,7 +8,7 @@ const Dashboard = () => {
   const [info, setInfo] = useState(null);
 
   useEffect(() => {
-    fetch(`http://localhost:5000/users/${user?.email}`)
+    fetch(`https://starbelly-eta.vercel.app/users/${user?.email}`)
       .then((res) => res.json())
       .then((data) => {
         setInfo(data);

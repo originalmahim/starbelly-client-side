@@ -11,7 +11,7 @@ const RequestedMeal = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/request/${user.email}`);
+        const response = await fetch(`https://starbelly-eta.vercel.app/request/${user.email}`);
         const data = await response.json();
 
         // Convert single object to array

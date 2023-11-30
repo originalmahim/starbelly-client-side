@@ -19,7 +19,7 @@ const { user } = useContext(AuthContex)
 
   useEffect(() => {
     if (totalPrice > 0) {
-      axios.post('http://localhost:5000/create-payment-intent', { price: totalPrice })
+      axios.post('https://starbelly-eta.vercel.app/create-payment-intent', { price: totalPrice })
         .then(res => {
           setClientSecret(res.data.clientSecret);
         })
@@ -85,7 +85,7 @@ const { user } = useContext(AuthContex)
       // }
       const subscriptionStatus = data?.name;
       const payload = { subscriptionStatus };
-      const res = await axios.patch(`http://localhost:5000/users/${user.email}`, payload);
+      const res = await axios.patch(`https://starbelly-eta.vercel.app/users/${user.email}`, payload);
       console.log('payment saved', res.data);
       if (res.data.modifiedCount > 0) {
         Swal.fire({

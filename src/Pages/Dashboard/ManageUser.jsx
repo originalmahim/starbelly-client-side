@@ -12,7 +12,7 @@ const ManageUser = () => {
   const { data, refetch } = useQuery({
     queryKey: ['users'],
     queryFn: async () => {
-      const res = await axios.get('http://localhost:5000/users');
+      const res = await axios.get('https://starbelly-eta.vercel.app/users');
       return res.data;
     },
   });
@@ -28,7 +28,7 @@ const ManageUser = () => {
       confirmButtonText: 'Make Admin',
     }).then((result) => {
       if (result.isConfirmed) {
-        axios.patch(`http://localhost:5000/users/${info?.email}/${info._id}`)
+        axios.patch(`https://starbelly-eta.vercel.app/users/${info?.email}/${info._id}`)
           .then((res) => {
             console.log(res.data);
             if (res.data.modifiedCount > 0) {
@@ -58,7 +58,7 @@ const ManageUser = () => {
       if (result.isConfirmed) {
         const subscriptionStatus = newSubscriptionStatus;
         const payload = { subscriptionStatus }; 
-        axios.patch(`http://localhost:5000/us/${user.email}/${user._id}`, payload)
+        axios.patch(`https://starbelly-eta.vercel.app/us/${user.email}/${user._id}`, payload)
           .then((res) => {
             console.log(res.data);
             if (res.data.modifiedCount > 0) {

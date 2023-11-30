@@ -16,7 +16,7 @@ const FoodDetails = () => {
   };
 
   useEffect(() => {
-    fetch(`http://localhost:5000/users/${user?.email}`)
+    fetch(`https://starbelly-eta.vercel.app/users/${user?.email}`)
     .then((res) => res.json())
     .then((data) => {
       setInfo(data);
@@ -43,7 +43,7 @@ const FoodDetails = () => {
         );
       } else {
         try {
-          const response = await axios.post('http://localhost:5000/request', data);
+          const response = await axios.post('https://starbelly-eta.vercel.app/request', data);
     
           console.log(response.data);
           Swal.fire(
