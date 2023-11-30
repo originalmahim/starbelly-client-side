@@ -1,37 +1,129 @@
-import { FaStar } from "react-icons/fa";
+
+import { useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
+import axios from 'axios';
+import { Link } from 'react-router-dom';
+import Swal from 'sweetalert2';
+
 const AllReviews = () => {
-          return (
-          <div>
-          <h1 className="text-xl font-semibold">Customers All Reviews Are Here </h1>
-          <div>
-                    <ul>
-                      <li>
-                    <div className="container flex flex-col w-full  p-6 mx-auto divide-y border-2 my-2 rounded-md bg-white">
-                    <div className="flex justify-between p-4">
-                    <div className="flex space-x-4">
-                    <div>
-                    <img src="https://source.unsplash.com/100x100/?portrait" alt="" className="object-cover w-12 h-12 rounded-full " />
-                    </div>
-                    <div>
-                    <h4 className="font-bold text-black">Leroy Jenkins</h4>
-                    <span className="text-xs text-black">2 days ago</span>
-                    </div>
-                    </div>
-                    <div className="flex items-center space-x-2 text-yellow-500">
-                    <FaStar></FaStar>
-                    <span className="text-xl font-bold">4.5</span>
-                    </div>
-                    </div>
-                    <div className="p-4 space-y-2 text-sm text-black">
-                    <p>Vivamus sit amet turpis leo. Praesent varius eleifend elit, eu dictum lectus consequat vitae. Etiam ut dolor id justo fringilla finibus.</p>
-                    <p>Donec eget ultricies diam, eu molestie arcu. Etiam nec lacus eu mauris cursus venenatis. Maecenas gravida urna vitae accumsan feugiat. Vestibulum commodo, ante sit urna purus rutrum sem.</p>
-                    </div>
-                    </div>
-                    </li>
-                    </ul>
-                    </div>                    
-          </div>
-          );
+  const [sortBy, setSortBy] = useState('likes'); // Default sorting by likes
+  const [sortOrder, setSortOrder] = useState('desc'); // Default sorting order
+
+  const { data: meal, isLoading, isError, refetch } = useQuery({
+    queryKey: ['meal'],
+    queryFn: async () => {
+      const res = await axios.get('http://localhost:5000/allmeals');
+      return res.data;
+    },
+  });
+
+  const handleSort = (criteria) => {
+    if (sortBy === criteria) {
+      // If already sorted by the selected criteria, toggle the order
+      setSortOrder((prevOrder) => (prevOrder === 'asc' ? 'desc' : 'asc'));
+    } else {
+      // If sorting by a new criteria, set the criteria and default to ascending order
+      setSortBy(criteria);
+      setSortOrder('asc');
+    }
+  };
+
+  const sortedMeals = meal?.sort((a, b) => {
+    const aValue = sortBy === 'likes' ? a.likes : a.reviews;
+    const bValue = sortBy === 'likes' ? b.likes : b.reviews;
+
+    if (sortOrder === 'asc') {
+      return aValue - bValue;
+    } else {
+      return bValue - aValue;
+    }
+  });
+
+  const handleDelete = (info) => {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: `${info.title} will be deleted permanently`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Delete',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        fetch(`http://localhost:5000/allmeals/${info._id}`, { method: 'DELETE' })
+          .then((res) => res.json())
+          .then((res) => {
+            console.log(res);
+            if (res.deletedCount > 0) {
+              refetch();
+              Swal.fire({
+                icon: 'success',
+                title: `${info.title} deleted permanently`,
+                showConfirmButton: false,
+                timer: 1500,
+              });
+            }
+          });
+      }
+    });
+  };
+
+  return (
+    <div className="container mx-auto p-4">
+      <div className="overflow-x-auto">
+        <div className="table-container" style={{ maxHeight: '400px', overflowY: 'auto' }}>
+          <table className="min-w-full border border-gray-300">
+            <thead className="bg-gray-100">
+              <tr>
+                <th
+                  className="py-2 px-4 border-b text-left cursor-pointer"
+                  onClick={() => handleSort('title')}
+                >
+                  Meal Title
+                </th>
+                <th
+                  className="py-2 px-4 border-b text-left cursor-pointer"
+                  onClick={() => handleSort('likes')}
+                >
+                  Likes {sortBy === 'likes' && sortOrder === 'asc' ? '▲' : '▼'}
+                </th>
+                <th
+                  className="py-2 px-4 border-b text-left cursor-pointer"
+                  onClick={() => handleSort('reviews')}
+                >
+                  Reviews {sortBy === 'reviews' && sortOrder === 'asc' ? '▲' : '▼'}
+                </th>
+                <th className="py-2 px-4 border-b text-left">Delete</th>
+                <th className="py-2 px-4 border-b text-left">View Meal</th>
+              </tr>
+            </thead>
+            <tbody>
+              {sortedMeals?.map((meal) => (
+                <tr key={meal._id}>
+                  <td className="py-2 px-4 border-b">{meal.title}</td>
+                  <td className="py-2 px-4 border-b">{meal.likes}</td>
+                  <td className="py-2 px-4 border-b">{meal.reviews}</td>
+                  <td className="py-2 px-4 border-b">
+                    <button
+                      onClick={() => handleDelete(meal)}
+                      className="bg-red-500 text-white px-3 py-1 rounded"
+                    >
+                      Delete
+                    </button>
+                  </td>
+                  <td className="py-2 px-4 border-b">
+                    <Link to={`/meal/${meal?._id}`}>
+                      <button className="bg-green-500 text-white px-3 py-1 rounded">View</button>
+                    </Link>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default AllReviews;
