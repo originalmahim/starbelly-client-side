@@ -61,6 +61,30 @@ const FoodDetails = () => {
         }
       }
     };
+     const oldLike = parseInt(product?.likes)
+      const [likes, setLikes] = useState(oldLike);
+  
+      const [isLiked, setIsLiked] = useState(false);
+    
+      const handleLikeClick = () => {
+        axios.patch(`http://localhost:5000/allmeals/${product._id}`)
+        .then((res) => {
+          console.log(res.data);
+          if (res.data.modifiedCount > 0) {
+            Swal.fire({
+              icon: 'success',
+              title: `Thanks For Liking ${info.name}`,
+              showConfirmButton: false,
+              timer: 1500,
+            });
+          }
+        });
+        if (!isLiked) {
+          setLikes(likes + 1);
+          setIsLiked(true);
+        }
+      }
+      
 
   return (
     <div>
@@ -82,6 +106,19 @@ const FoodDetails = () => {
                   <span className="text-2xl leading-none align-baseline">$</span>
                   <span className="font-bold text-5xl leading-none align-baseline">{product?.price}</span>
                 </div>
+                <div className="my-2">
+                <button
+                  onClick={handleLikeClick}
+                  className={`${
+                    isLiked ? 'bg-red-300' : 'bg-gray-200'
+                  } p-2 rounded-full`}
+                > Total Likes 
+                  <span role="img" aria-label="Love">
+                    ❤️
+                  </span>
+                </button>
+                <span className="ml-2">{likes}</span>
+    </div>
                 <div className="inline-block align-bottom">
                   {product.price == 0 ? (
                     <button className="bg-blue-400 text-black rounded-full px-10 py-2 font-semibold">Not Available</button>
