@@ -33,7 +33,7 @@ const ServeMeal = () => {
   }, [searchQuery, fetchDataTrigger]); // Listen for changes in fetchDataTrigger
 
   const handleServe = (info) => {
-    Swal.fire({
+        Swal.fire({
       title: 'Are you sure?',
       text: `${info.name}'s Ordered food status will be Updated !`,
       icon: 'warning',

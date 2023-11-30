@@ -1,9 +1,10 @@
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 const AllMeals = () => {
-  const { data: meal, isLoading, isError } = useQuery({
+  const { data: meal, isLoading, isError, refetch } = useQuery({
     queryKey: ['meal'],
     queryFn: async () => {
       const res = await axios.get('http://localhost:5000/allmeals');
@@ -17,6 +18,35 @@ const AllMeals = () => {
 
   if (isError) {
     return <p>Error loading data</p>;
+  }
+
+  const handleDelete = (info) => {
+          Swal.fire({
+                    title: 'Are you sure?',
+                    text: `${info.title} will be Delete Permanently`,
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Delete',
+                  }).then((result) => {
+                    if (result.isConfirmed) {
+                    fetch(`http://localhost:5000/allmeals/${info._id}`, { method: 'DELETE'})
+                    .then((res) => res.json())
+                      .then((res) => {
+                     console.log(res);
+                    if (res.deletedCount > 0) {
+                    refetch()
+                          Swal.fire({
+                            icon: 'success',
+                            title: `${info.title}  Deleted Permanently`,
+                            showConfirmButton: false,
+                            timer: 1500,
+                          });
+                        }
+                      });
+                    }
+                  });
   }
 
   return (
@@ -48,7 +78,7 @@ const AllMeals = () => {
                     <button className="bg-blue-500 text-white px-3 py-1 rounded">Update</button>
                   </td>
                   <td className="py-2 px-4 border-b">
-                    <button className="bg-red-500 text-white px-3 py-1 rounded">Delete</button>
+                    <button onClick={ () => handleDelete(meal)} className="bg-red-500 text-white px-3 py-1 rounded">Delete</button>
                   </td>
                   <td className="py-2 px-4 border-b">
                     <Link to={`/meal/${meal?._id}`}>
