@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import Swal from 'sweetalert2';
+import { Helmet } from 'react-helmet';
 
 const ManageUser = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -89,6 +90,9 @@ const ManageUser = () => {
 
   return (
     <div className="container mx-auto p-4">
+      <Helmet>
+          <title>Starbelly | Manage User</title>
+          </Helmet>
       <div className="mb-4">
         <input
           type="text"

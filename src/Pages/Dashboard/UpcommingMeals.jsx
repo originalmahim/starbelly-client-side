@@ -3,6 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import Swal from 'sweetalert2';
+import { Helmet } from 'react-helmet';
 
 const UpcommingMeals = () => {
   const [sortBy, setSortBy] = useState('likes'); 
@@ -59,6 +60,9 @@ const UpcommingMeals = () => {
 
   return (
     <div className="container mx-auto p-4">
+      <Helmet>
+          <title>Starbelly | Upcoming Meals</title>
+          </Helmet>
       <div className="overflow-x-auto">
         <div className="table-container" style={{ maxHeight: '400px', overflowY: 'auto' }}>
           <table className="min-w-full border border-gray-300">

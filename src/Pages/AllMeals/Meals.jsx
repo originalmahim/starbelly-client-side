@@ -4,6 +4,7 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { FaStar } from 'react-icons/fa';
 import ReactPaginate from 'react-paginate';
+import { Helmet } from 'react-helmet';
 
 const Meals = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -44,6 +45,9 @@ const Meals = () => {
 
   return (
     <div className="max-w-7xl mx-auto">
+      <Helmet>
+          <title>Starbelly | Meals</title>
+          </Helmet>
       <div className="text-center text-xl text-black mt-8 mb-16">
         <h1 className="lg:text-5xl text-4xl font-semibold">All Meals</h1>
         <p>Our ALL Meals Items Are on Specific Cards</p>

@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { NavLink, Outlet } from "react-router-dom";
 import { AuthContex } from "../Providers/AuthProvider";
+import { Helmet } from "react-helmet";
 
 const Dashboard = () => {
   const { user } = useContext(AuthContex);
@@ -156,6 +157,9 @@ const Dashboard = () => {
 
       {/* Content */}
       <div className="lg:max-w-7xl mx-auto mt-8">
+      <Helmet>
+          <title>Starbelly | Dashboard</title>
+          </Helmet>
         <div className="lg:flex">
           <div className="lg:w-1/4 p-4 hidden lg:block">
             {info?.role === "admin" ? (

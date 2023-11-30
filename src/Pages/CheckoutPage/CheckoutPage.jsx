@@ -4,6 +4,7 @@ import { AuthContex } from './../Providers/AuthProvider';
 import ChelkOutForm from "./ChelkOutForm";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from '@stripe/react-stripe-js';
+import { Helmet } from "react-helmet";
 
 const stripePromiss = loadStripe('pk_test_51OFW1EI046RRop3ptKjeKIdZN7a9rxfZkGsDCdAOExlV6MqPTSnnjYsW4yljF6u5fqCHqLmLV3v1vetWUOrgSqbx009Jd7Lz3x')
 const CheckoutPage = () => {
@@ -11,6 +12,9 @@ const CheckoutPage = () => {
   const {user} = useContext(AuthContex)
   return (
           <div className="bg-gray-100 font-sans max-w-7xl mx-auto">
+            <Helmet>
+          <title>Starbelly | ChelkOut</title>
+          </Helmet>
           <div className="container mx-auto p-4 mt-8">
           <div className="bg-white p-8 rounded shadow-md">
               <h1 className="text-2xl font-semibold mb-6">Checkout</h1>

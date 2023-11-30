@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Helmet } from 'react-helmet';
 
 const MyReviews = () => {
   const [userReviews, setUserReviews] = useState([]);
@@ -19,6 +20,9 @@ const MyReviews = () => {
 
   return (
     <div className="container mx-auto p-4">
+      <Helmet>
+          <title>Starbelly | My Reviews</title>
+          </Helmet>
       <h1 className="text-2xl font-bold mb-4">My Reviews</h1>
 
       <div className="overflow-x-auto">

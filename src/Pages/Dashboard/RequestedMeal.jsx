@@ -1,5 +1,6 @@
 import { useState, useEffect, useContext } from 'react';
 import { AuthContex } from '../Providers/AuthProvider';
+import { Helmet } from 'react-helmet';
 
 
 const RequestedMeal = () => {
@@ -43,6 +44,9 @@ const RequestedMeal = () => {
 
   return (
     <div className="container mx-auto p-4">
+      <Helmet>
+          <title>Starbelly | Requested Meals</title>
+          </Helmet>
       <div className="mb-4">
         <label className="mr-2">Sort by Status:</label>
         <select

@@ -3,6 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import ReactPaginate from 'react-paginate';
+import { Helmet } from 'react-helmet';
 
 const Upcoming = () => {
   const [currentPage, setCurrentPage] = useState(0);
@@ -26,6 +27,9 @@ const Upcoming = () => {
 
   return (
     <div className="max-w-7xl mx-auto">
+      <Helmet>
+          <title>Starbelly | Upcoming Meals</title>
+          </Helmet>
       <div className="text-center text-xl text-black mt-8 mb-16">
         <h1 className="lg:text-5xl text-4xl font-semibold">Upcoming Meals</h1>
         <p>Our ALL Upcoming Meals Items Are on Specific Cards</p>

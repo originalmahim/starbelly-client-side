@@ -1,5 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { AuthContex } from './../Providers/AuthProvider';
+import { Helmet } from "react-helmet";
 
 const Profile = () => {
   const { user } = useContext(AuthContex);
@@ -25,6 +26,9 @@ const Profile = () => {
 
   return (
     <div className="flex items-center justify-center">
+      <Helmet>
+          <title>Starbelly | Profile</title>
+          </Helmet>
       <div className="bg-white p-8 shadow-md w-full max-w-2xl">
         {/* Cover Photo */}
         <div className="mb-6">

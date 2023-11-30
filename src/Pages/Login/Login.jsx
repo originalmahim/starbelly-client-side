@@ -6,8 +6,8 @@ import Swal from 'sweetalert2';
 import { AuthContex } from '../Providers/AuthProvider';
 import app from '../Shared/firebase.config';
 import axios from 'axios';
+import { Helmet } from 'react-helmet';
 
-// import { Helmet } from 'react-helmet';
 
 const Login = () => {
   const {LogIn} = useContext(AuthContex)
@@ -61,9 +61,9 @@ const Login = () => {
  }
   return (
     <div className="bg-white">
-      {/* <Helmet>
-      <title>Career X | Login</title>
-      </Helmet> */}
+      <Helmet>
+          <title>Starbelly | Login</title>
+          </Helmet>
       <div className="flex justify-around items-center max-w-6xl mx-auto lg:my-20">
         <div className="hidden lg:flex">
           <img src="https://static.vecteezy.com/system/resources/thumbnails/005/879/539/small_2x/cloud-computing-modern-flat-concept-for-web-banner-design-man-enters-password-and-login-to-access-cloud-storage-for-uploading-and-processing-files-illustration-with-isolated-people-scene-free-vector.jpg" />

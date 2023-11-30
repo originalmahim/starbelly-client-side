@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { useState, useEffect } from 'react';
+import { Helmet } from 'react-helmet';
 import Swal from 'sweetalert2';
 
 const ServeMeal = () => {
@@ -61,6 +62,9 @@ const ServeMeal = () => {
 
   return (
     <div className="container mx-auto p-4">
+          <Helmet>
+          <title>Starbelly | Serve Meal</title>
+          </Helmet>
       <div className="mb-4">
         <label className="mr-2">Search:</label>
         <input

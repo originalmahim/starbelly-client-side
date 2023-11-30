@@ -7,7 +7,7 @@ import Swal from 'sweetalert2'
 import { AuthContex } from '../Providers/AuthProvider';
 import app from '../Shared/firebase.config';
 import axios from 'axios';
-// import { Helmet } from 'react-helmet';
+import { Helmet } from 'react-helmet';
 
 
 const SignUp = () => {
@@ -91,9 +91,9 @@ const SignUp = () => {
 
           return (
           <div className=''>
-            {/* <Helmet>
-            <title>Starbelly | Sign Up</title>
-            </Helmet> */}
+            <Helmet>
+          <title>Starbelly | SignUp</title>
+          </Helmet>
           <div className="max-w-6xl mx-auto flex items-center justify-center  text-xl mb-6  ">
           <div className='hidden lg:grid'>
           <img className='' src="https://i.ibb.co/Lg5HBfR/Screenshot-2023-11-05-123412.png" alt="" />

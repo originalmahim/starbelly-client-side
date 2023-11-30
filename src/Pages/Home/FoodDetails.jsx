@@ -4,6 +4,7 @@ import { useLoaderData } from "react-router-dom";
 import { AuthContex } from './../Providers/AuthProvider';
 import axios from "axios";
 import Swal from "sweetalert2";
+import { Helmet } from "react-helmet";
 
 const FoodDetails = () => {
   const {user} = useContext(AuthContex)
@@ -63,6 +64,9 @@ const FoodDetails = () => {
 
   return (
     <div>
+      <Helmet>
+          <title>Starbelly | Details</title>
+          </Helmet>
       <div className="min-w-screen min-h-screen bg-yellow-300 flex items-center p-5 lg:p-10 overflow-hidden relative">
         <div className="w-full max-w-6xl rounded bg-white shadow-xl p-10 lg:p-20 mx-auto text-gray-800 relative md:text-left">
           <div className="md:flex items-center -mx-10">
