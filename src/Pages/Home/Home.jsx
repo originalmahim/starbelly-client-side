@@ -6,7 +6,7 @@ import Service from "./Service";
 
 const Home = () => {
           return (
-          <div>
+          <div className="overflow-x-hidden">
            <Banner></Banner>
            <div className="max-w-7xl mx-auto">
           <Experience></Experience>
