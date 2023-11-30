@@ -32,7 +32,6 @@ const AddMeal = () => {
     setValue('email', user.email);
     setValue('likes', '0');
     setValue('rating', '0');
-    
 
     try {
       const response = await axios.post('http://localhost:5000/allmeals', data);
@@ -57,7 +56,7 @@ const AddMeal = () => {
     }
   };
 
-  const onAddToUpcomingClick = async (data,e) => {
+  const onAddToUpcomingClick = async (data, e) => {
     e.preventDefault();
     // Set the value of 'ingredients' in the form data
     setValue('ingredients', ingredientFields);
@@ -68,7 +67,6 @@ const AddMeal = () => {
     setValue('likes', '0');
     setValue('rating', '0');
     setValue('reviews', '0');
-    
 
     try {
       const response = await axios.post('http://localhost:5000/upcoming', data);
@@ -94,9 +92,8 @@ const AddMeal = () => {
   };
 
   return (
-    <div className="container mx-auto p-4">
+    <div className="container mx-auto p-4" style={{ maxHeight: '600px', overflowY: 'auto' }}>
       <h1 className="text-2xl font-bold mb-4">Add Meal</h1>
-
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="mb-4">
           <label className="block text-sm font-medium text-gray-700">Meal Title:</label>
