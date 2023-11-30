@@ -43,7 +43,7 @@ const ServeMeal = () => {
       confirmButtonText: 'Update',
     }).then((result) => {
       if (result.isConfirmed) {
-        axios.patch(`http://localhost:5000/request/${info._id}`).then((res) => {
+        axios.patch(`http://localhost:5000/req/${info._id}`).then((res) => {
           console.log(res.data);
           if (res.data.modifiedCount > 0) {
             Swal.fire({

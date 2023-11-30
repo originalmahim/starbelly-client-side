@@ -12,7 +12,6 @@ const RequestedMeal = () => {
       try {
         const response = await fetch(`http://localhost:5000/request/${user.email}`);
         const data = await response.json();
-        console.log(data);
 
         // Convert single object to array
         const dataArray = Array.isArray(data) ? data : [data];

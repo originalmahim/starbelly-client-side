@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { FaStar } from "react-icons/fa";
 import { useLoaderData } from "react-router-dom";
 import { AuthContex } from './../Providers/AuthProvider';
@@ -9,38 +9,57 @@ const FoodDetails = () => {
   const {user} = useContext(AuthContex)
   const product = useLoaderData();
   const [open, setOpen] = useState("home");
-
+  const [info,setInfo] = useState([])
   const handleTabOpen = (tabCategory) => {
     setOpen(tabCategory);
   };
 
-  const handleMealRequest = async () => {
-    const mealTitle = product?.title;
-    const likes = product?.likes;
-    const reviews = product?.reviews;
-    const status = "Pending";
-    const email = user.email;
-    const name = user.displayName;
-    const data = {mealTitle,likes,reviews,status,email,name}
-    console.log(data);
-    try {
-      const response = await axios.post('http://localhost:5000/request', data);
+  useEffect(() => {
+    fetch(`http://localhost:5000/users/${user?.email}`)
+    .then((res) => res.json())
+    .then((data) => {
+      setInfo(data);
+    })
+    .catch((error) => {
+    console.error("Error fetching data:", error);
+    });
+    }, [user?.email, info]);
 
-      console.log(response.data);
-      Swal.fire(
-        'Meal Requested',
-        'You have Requested A New Meal successfully',
-        'success'
-      );
-    } catch (error) {
-      console.error('Error adding meal:', error);
-      Swal.fire(
-        'Error',
-        'An error occurred while requesting the meal',
-        'error'
-      );
-    }
-  }
+    const handleMealRequest = async () => {
+      const mealTitle = product?.title;
+      const likes = product?.likes;
+      const reviews = product?.reviews;
+      const status = "Pending";
+      const email = user.email;
+      const name = user.displayName;
+      const data = { mealTitle, likes, reviews, status, email, name };
+    
+      if (info.subscriptionStatus === "Bronze") {
+        Swal.fire(
+          'Update Your Plan',
+          'You need to update the subscription plan to request a meal',
+          'error'
+        );
+      } else {
+        try {
+          const response = await axios.post('http://localhost:5000/request', data);
+    
+          console.log(response.data);
+          Swal.fire(
+            'Meal Requested',
+            'You have requested a new meal successfully',
+            'success'
+          );
+        } catch (error) {
+          console.error('Error adding meal:', error);
+          Swal.fire(
+            'Error',
+            'An error occurred while requesting the meal',
+            'error'
+          );
+        }
+      }
+    };
 
   return (
     <div>
