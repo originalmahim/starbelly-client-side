@@ -9,8 +9,8 @@ const Home = () => {
           <div className="overflow-x-hidden">
            <Banner></Banner>
            <div className="max-w-7xl mx-auto">
-          <Experience></Experience>
            <Featured></Featured>
+          <Experience></Experience>
            <Pricing></Pricing>
            <Service></Service>                   
            </div>

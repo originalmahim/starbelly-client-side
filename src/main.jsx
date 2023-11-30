@@ -29,6 +29,7 @@ import {
 import Protected from './Pages/Providers/Protected';
 import Meals from './Pages/AllMeals/Meals';
 import Upcoming from './Pages/Upcoming/upcoming';
+import Blogs from './Pages/Blogs/Blogs';
 
 const queryClient = new QueryClient();
 const router = createBrowserRouter([
@@ -55,6 +56,10 @@ const router = createBrowserRouter([
       {
         path: '/upcomingmeals',
         element: <Protected><Upcoming></Upcoming></Protected>
+      },
+      {
+        path: '/blogs',
+        element: <Blogs></Blogs>
       },
 
       {
