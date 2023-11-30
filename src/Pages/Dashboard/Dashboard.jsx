@@ -156,11 +156,8 @@ const Dashboard = () => {
 
       {/* Content */}
       <div className="lg:max-w-7xl mx-auto mt-8">
-        {/* Your routing logic goes here */}
-        {/* For simplicity, I'll create a basic tab structure */}
         <div className="lg:flex">
           <div className="lg:w-1/4 p-4 hidden lg:block">
-            {/* Sidebar */}
             {info?.role === "admin" ? (
               <ul>
                 <li>
