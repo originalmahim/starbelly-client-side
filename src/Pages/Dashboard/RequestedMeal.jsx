@@ -1,17 +1,24 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
+import { AuthContex } from '../Providers/AuthProvider';
+
 
 const RequestedMeal = () => {
   const [searchResults, setSearchResults] = useState([]);
   const [sortByStatus, setSortByStatus] = useState('');
+  const { user } = useContext(AuthContex);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('/meal.json');
+        const response = await fetch(`http://localhost:5000/request/${user.email}`);
         const data = await response.json();
+        console.log(data);
+
+        // Convert single object to array
+        const dataArray = Array.isArray(data) ? data : [data];
 
         const sortedData = sortByStatus
-          ? data.sort((a, b) => {
+          ? dataArray.sort((a, b) => {
               if (a.status === sortByStatus && b.status !== sortByStatus) {
                 return -1;
               } else if (a.status !== sortByStatus && b.status === sortByStatus) {
@@ -20,7 +27,7 @@ const RequestedMeal = () => {
                 return a.status.localeCompare(b.status);
               }
             })
-          : data;
+          : dataArray;
 
         setSearchResults(sortedData);
       } catch (error) {
@@ -29,7 +36,7 @@ const RequestedMeal = () => {
     };
 
     fetchData();
-  }, [sortByStatus]);
+  }, [sortByStatus, user.email]);
 
   const handleSortByStatus = (status) => {
     setSortByStatus(status);
@@ -62,7 +69,7 @@ const RequestedMeal = () => {
             </tr>
           </thead>
           <tbody>
-            {searchResults.map((meal) => (
+            {searchResults?.map((meal) => (
               <tr key={meal.id}>
                 <td className="py-2 px-4 border-b">{meal.mealTitle}</td>
                 <td className="py-2 px-4 border-b">{meal.likes}</td>
@@ -85,6 +92,3 @@ const RequestedMeal = () => {
 };
 
 export default RequestedMeal;
-
-
-

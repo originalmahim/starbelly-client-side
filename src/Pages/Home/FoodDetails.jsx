@@ -1,14 +1,46 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { FaStar } from "react-icons/fa";
 import { useLoaderData } from "react-router-dom";
+import { AuthContex } from './../Providers/AuthProvider';
+import axios from "axios";
+import Swal from "sweetalert2";
 
 const FoodDetails = () => {
+  const {user} = useContext(AuthContex)
   const product = useLoaderData();
   const [open, setOpen] = useState("home");
 
   const handleTabOpen = (tabCategory) => {
     setOpen(tabCategory);
   };
+
+  const handleMealRequest = async () => {
+    const mealTitle = product?.title;
+    const likes = product?.likes;
+    const reviews = product?.reviews;
+    const status = "Pending";
+    const email = user.email;
+    const name = user.displayName;
+    const data = {mealTitle,likes,reviews,status,email,name}
+    console.log(data);
+    try {
+      const response = await axios.post('http://localhost:5000/request', data);
+
+      console.log(response.data);
+      Swal.fire(
+        'Meal Requested',
+        'You have Requested A New Meal successfully',
+        'success'
+      );
+    } catch (error) {
+      console.error('Error adding meal:', error);
+      Swal.fire(
+        'Error',
+        'An error occurred while requesting the meal',
+        'error'
+      );
+    }
+  }
 
   return (
     <div>
@@ -31,7 +63,7 @@ const FoodDetails = () => {
                   {product.price == 0 ? (
                     <button className="bg-blue-400 text-black rounded-full px-10 py-2 font-semibold">Not Available</button>
                   ) : (
-                    <button className="bg-yellow-400 btn text-black rounded-full px-10 py-2 font-semibold">Meal request</button>
+                    <button onClick={handleMealRequest} className="bg-yellow-400 btn text-black rounded-full px-10 py-2 font-semibold">Meal request</button>
                   )}
                 </div>
               </div>

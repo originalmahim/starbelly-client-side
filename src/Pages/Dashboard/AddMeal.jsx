@@ -67,6 +67,7 @@ const AddMeal = () => {
     setValue('email', user.email);
     setValue('likes', '0');
     setValue('rating', '0');
+    setValue('reviews', '0');
     
 
     try {
@@ -194,6 +195,17 @@ const AddMeal = () => {
             step="0.1"
             className="mt-1 p-2 border w-full"
             {...register('rating', { defaultValue: 0 })}
+          />
+        </div>
+
+        <div className="mb-4">
+          <label className="block text-sm font-medium text-gray-700">Reviews:</label>
+          <input
+            type="number"
+            step="0.1"
+            className="mt-1 p-2 border w-full"
+            {...register('reviews')}
+            defaultValue={'0'}
           />
         </div>
 
