@@ -28,7 +28,7 @@ const FoodDetails = () => {
                   <span className="font-bold text-5xl leading-none align-baseline">{product?.price}</span>
                 </div>
                 <div className="inline-block align-bottom">
-                  {product.price === 0 ? (
+                  {product.price == 0 ? (
                     <button className="bg-blue-400 text-black rounded-full px-10 py-2 font-semibold">Not Available</button>
                   ) : (
                     <button className="bg-yellow-400 btn text-black rounded-full px-10 py-2 font-semibold">Meal request</button>
@@ -62,26 +62,6 @@ const FoodDetails = () => {
                         }`}
                       >
                         Reviews
-                      </a>
-                      <a
-                        onClick={() => handleTabOpen("team")}
-                        className={`cursor-pointer rounded-md px-4 py-3 text-sm font-medium md:text-base lg:px-6 ${
-                          open === "team"
-                            ? "bg-primary text-white"
-                            : "text-body-color hover:bg-primary hover:text-white dark:text-dark-6 "
-                        }`}
-                      >
-                        Our Team
-                      </a>
-                      <a
-                        onClick={() => handleTabOpen("company")}
-                        className={`cursor-pointer rounded-md px-4 py-3 text-sm font-medium md:text-base lg:px-6 ${
-                          open === "company"
-                            ? "bg-primary text-white"
-                            : "text-body-color hover:bg-primary hover:text-white dark:text-dark-6 dark:hover:text-white"
-                        }`}
-                      >
-                        Company Details
                       </a>
                     </div>
                     <TabContent tabCategory="home" open={open}>
