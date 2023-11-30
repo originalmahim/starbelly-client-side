@@ -67,7 +67,7 @@ const FoodDetails = () => {
       const [isLiked, setIsLiked] = useState(false);
     
       const handleLikeClick = () => {
-        axios.patch(`http://localhost:5000/allmeals/${product._id}`)
+        axios.patch(`https://starbelly-eta.vercel.app/allmeals/${product._id}`)
         .then((res) => {
           console.log(res.data);
           if (res.data.modifiedCount > 0) {
