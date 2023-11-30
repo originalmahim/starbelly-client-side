@@ -1,6 +1,8 @@
 import { Link, NavLink, Outlet } from "react-router-dom";
 import {  useContext, useState } from "react";
 import Footer from "../Footer/Footer";
+import { FaBell } from 'react-icons/fa';
+
 import './Header.css'
 import Swal from 'sweetalert2';
 import { AuthContex } from "../../Providers/AuthProvider";
@@ -42,6 +44,15 @@ const Header = () => {
           <NavLink to= '/contact'  className="text-xl flex items-center px-4 -mb-1 border-b-2 border-transparent ">Contact Us</NavLink>
           </li>
           }
+
+           {user && (
+            <li>
+            <button className="flex btn items-center  bg-blue-500 text-white px-4 py-2 rounded">
+              <FaBell size={20} />
+              <span>Notifications</span>
+            </button>
+              </li>
+                )}
           
           </>
           return (
