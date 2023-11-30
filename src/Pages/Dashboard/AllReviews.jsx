@@ -9,7 +9,7 @@ const AllReviews = () => {
   const [sortBy, setSortBy] = useState('likes'); // Default sorting by likes
   const [sortOrder, setSortOrder] = useState('desc'); // Default sorting order
 
-  const { data: meal, isLoading, isError, refetch } = useQuery({
+  const { data: meal, refetch } = useQuery({
     queryKey: ['meal'],
     queryFn: async () => {
       const res = await axios.get('http://localhost:5000/allmeals');

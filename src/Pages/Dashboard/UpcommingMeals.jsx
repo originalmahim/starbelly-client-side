@@ -11,7 +11,7 @@ const UpcommingMeals = () => {
   const { data: meal, refetch } = useQuery({
     queryKey: ['meal'],
     queryFn: async () => {
-      const res = await axios.get('http://localhost:5000/allmeals');
+      const res = await axios.get('http://localhost:5000/upcoming');
       return res.data;
     },
   });
@@ -38,8 +38,23 @@ const UpcommingMeals = () => {
     }
   });
 
-  const handlePublish = () => {
-    
+  const handlePublish = (info) => {
+    if (info.likes > 10) {
+          Swal.fire({
+          icon: 'success',
+          title: `${info?.title} Published to Meal Menu`,
+          showConfirmButton: false,
+          timer: 1500,
+          });  
+    }
+    else{
+          Swal.fire({
+          icon: 'error',
+          title: `${info?.title} Need 10 Likes For Publish`,
+          showConfirmButton: false,
+          timer: 1500,
+          });    
+    }
   };
 
   return (
