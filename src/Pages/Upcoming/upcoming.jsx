@@ -11,7 +11,7 @@ const Upcoming = () => {
   const { data: brands = [] } = useQuery({
     queryKey: ['items'],
     queryFn: async () => {
-      const res = await axios.get('http://localhost:5000/allmeals');
+      const res = await axios.get('http://localhost:5000/upcoming');
       return res.data;
     },
   });

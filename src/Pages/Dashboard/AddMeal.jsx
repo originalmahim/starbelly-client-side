@@ -30,8 +30,8 @@ const AddMeal = () => {
     // Set default values for distributor name, email, likes, and rating
     setValue('mealDistributor', user.displayName);
     setValue('email', user.email);
-    setValue('likes', 0);
-    setValue('rating', 0);
+    setValue('likes', '0');
+    setValue('rating', '0');
     
 
     try {
@@ -57,8 +57,39 @@ const AddMeal = () => {
     }
   };
 
-  const onAddToUpcomingClick = (data) => {
-    console.log(data);
+  const onAddToUpcomingClick = async (data,e) => {
+    e.preventDefault();
+    // Set the value of 'ingredients' in the form data
+    setValue('ingredients', ingredientFields);
+
+    // Set default values for distributor name, email, likes, and rating
+    setValue('mealDistributor', user.displayName);
+    setValue('email', user.email);
+    setValue('likes', '0');
+    setValue('rating', '0');
+    
+
+    try {
+      const response = await axios.post('http://localhost:5000/upcoming', data);
+
+      console.log(response.data);
+      Swal.fire(
+        'Upcoming Meal Added',
+        'You have Added A New Upcoming Meal successfully',
+        'success'
+      );
+
+      // Reset the form and ingredient fields after successful meal addition
+      reset();
+      setIngredientFields(['']);
+    } catch (error) {
+      console.error('Error adding meal:', error);
+      Swal.fire(
+        'Error',
+        'An error occurred while adding the meal',
+        'error'
+      );
+    }
   };
 
   return (
