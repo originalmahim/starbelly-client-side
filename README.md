@@ -2,6 +2,11 @@
 
 <a href="https://starbellymeals-deb98.web.app">Live Link - 1</a>
 
+# Admin Info
+
+1. Admin email: admin@gmail.com
+2. Admin password: @Admin1234
+
 
 # Website Features: Starbelly
 
