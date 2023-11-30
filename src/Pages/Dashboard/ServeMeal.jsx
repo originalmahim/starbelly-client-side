@@ -1,8 +1,11 @@
-import  { useState, useEffect } from 'react';
+import axios from 'axios';
+import { useState, useEffect } from 'react';
+import Swal from 'sweetalert2';
 
 const ServeMeal = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState([]);
+  const [fetchDataTrigger, setFetchDataTrigger] = useState(false); // New state variable
 
   useEffect(() => {
     const fetchData = async () => {
@@ -27,7 +30,34 @@ const ServeMeal = () => {
     };
 
     fetchData();
-  }, [searchQuery]);
+  }, [searchQuery, fetchDataTrigger]); // Listen for changes in fetchDataTrigger
+
+  const handleServe = (info) => {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: `${info.name}'s Ordered food status will be Updated !`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Update',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios.patch(`http://localhost:5000/request/${info._id}`).then((res) => {
+          console.log(res.data);
+          if (res.data.modifiedCount > 0) {
+            Swal.fire({
+              icon: 'success',
+              title: `Status Updated`,
+              showConfirmButton: false,
+              timer: 1500,
+            });
+            setFetchDataTrigger((prev) => !prev); // Toggle fetchDataTrigger to trigger refetch
+          }
+        });
+      }
+    });
+  };
 
   return (
     <div className="container mx-auto p-4">
@@ -64,7 +94,13 @@ const ServeMeal = () => {
                   </span>
                 </td>
                 <td className="py-2 px-4 border-b">
-                  <button className="bg-blue-500 text-white px-3 py-1 rounded">Serve</button>
+                  {meal?.status === 'Delivered' ? (
+                    "Served"
+                  ) : (
+                    <button onClick={() => handleServe(meal)} className="bg-blue-500 text-white px-3 py-1 rounded">
+                      Serve
+                    </button>
+                  )}
                 </td>
               </tr>
             ))}
@@ -76,3 +112,5 @@ const ServeMeal = () => {
 };
 
 export default ServeMeal;
+
+
